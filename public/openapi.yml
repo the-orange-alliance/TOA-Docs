@@ -217,8 +217,7 @@ components:
         pick1:
           $ref: "#/components/schemas/Team"
         pick2:
-          type:
-            $ref: "#/components/schemas/Team"
+          $ref: "#/components/schemas/Team"
           nullable: true
     Award:
       type: object
