@@ -184,15 +184,330 @@ paths:
                 properties:
                   result:
                     type: integer
-
-  /match/{matchKey}:
+  /event/{eventKey}:
     get:
-      summary: Get a match by ID
+      summary: Specific event details
+      tags:
+        - Event
+      parameters:
+        - in: path
+          name: eventKey
+          schema:
+            type: string
+          required: true
+      responses:
+        200:
+          description: Returns event information for a specific event
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Event"
+  /event/{eventKey}/matches:
+    get:
+      summary: Event matches
+      tags:
+        - Event
+        - Match
+      parameters:
+        - in: path
+          name: eventKey
+          schema:
+            type: string
+          required: true
+      responses:
+        200:
+          description: Returns all matches for a specific event
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Match"
+  /event/{eventKey}/matches/details:
+    get:
+      summary: Event match details
+      tags:
+        - Event
+        - Match
+      parameters:
+        - in: path
+          name: eventKey
+          schema:
+            type: string
+          required: true
+      responses:
+        200:
+          description: Returns all match details for a specific event
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/MatchDetails"
+  /event/{eventKey}/matches/participants:
+    get:
+      summary: Event match participants
+      tags:
+        - Event
+        - Match
+      parameters:
+        - in: path
+          name: eventKey
+          schema:
+            type: string
+          required: true
+      responses:
+        200:
+          description: Returns all teams that participated in each match at a specific event
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/MatchParticipant"
+  /event/{eventKey}/rankings:
+    get:
+      summary: Event rankings
+      tags:
+        - Event
+      parameters:
+        - in: path
+          name: eventKey
+          schema:
+            type: string
+          required: true
+      responses:
+        200:
+          description: Returns team rankings for a specific event
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Ranking"
+  /event/{eventKey}/insights:
+    get:
+      summary: Event insights
+      tags:
+        - Event
+        - Insights
+      parameters:
+        - in: path
+          name: eventKey
+          schema:
+            type: string
+          required: true
+        - in: query
+          name: type
+          description: Specific type of insights. (quals or elims)
+          required: true
+          schema:
+            type: string
+            enum: [quals, elims]
+      responses:
+        200:
+          description: Returns insights for a specific event
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/EventInsights"
+  /event/{eventKey}/alliances:
+    get:
+      summary: Event alliances
+      tags:
+        - Event
+      parameters:
+        - in: path
+          name: eventKey
+          schema:
+            type: string
+          required: true
+      responses:
+        200:
+          description: Returns elimination alliances for a specific event
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Alliance"
+  /event/{eventKey}/streams:
+    get:
+      summary: Event livestreams
+      tags:
+        - Event
+      parameters:
+        - in: path
+          name: eventKey
+          schema:
+            type: string
+          required: true
+      responses:
+        200:
+          description: Returns all available livestreams for a specific event
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/EventLiveStream"
+  /event/{eventKey}/teams:
+    get:
+      summary: Event teams
+      tags:
+        - Event
+      parameters:
+        - in: path
+          name: eventKey
+          schema:
+            type: string
+          required: true
+      responses:
+        200:
+          description: Returns list of participating teams for a specific event
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/EventParticipant"
+  /event/{eventKey}/awards:
+    get:
+      summary: Event awards
+      tags:
+        - Event
+      parameters:
+        - in: path
+          name: eventKey
+          schema:
+            type: string
+          required: true
+      responses:
+        200:
+          description: Returns all awards for a specific event
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/AwardRecipient"
+  /event/{eventKey}/media:
+    get:
+      summary: Event media
+      tags:
+        - Event
+      parameters:
+        - in: path
+          name: eventKey
+          schema:
+            type: string
+          required: true
+      responses:
+        200:
+          description: Returns all uploaded media for a specific event
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Media"
+  /match/all/{seasonKey}:
+    get:
+      summary: Matches from season
+      tags:
+        - Match
+      parameters:
+        - in: path
+          name: seasonKey
+          schema:
+            type: string
+          required: true
+        - in: query
+          name: start
+          description: The place in the database to start, used for pagination
+          required: false
+          schema:
+            type: number
+        - in: query
+          name: count
+          description: Number of matches to return (max 500, default 500)
+          schema:
+            type: number
+            minimum: 0
+            maximum: 500
+            default: 500
+      responses:
+        200:
+          description: All matches from a specific season.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Match"
+  /match/size:
+    get:
+      summary: Match count
       tags:
         - Match
       responses:
         200:
-          description: Match object
+          description: Returns the amount of matches in the current season database
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: integer
+  /match/high-scores:
+    get:
+      summary: High scoring matches
+      tags:
+        - Match
+      parameters:
+        - in: query
+          name: type
+          description: Type of match to search by
+          schema:
+            type: string
+            enum: [quals, elims, single_team, all]
+          required: false
+        - in: query
+          name: season_key
+          description: Season to query by
+          schema:
+            type: string
+          required: false
+        - in: query
+          name: penalty
+          description: Whether to include matches with penalties
+          schema:
+            type: boolean
+          required: false
+      responses:
+        200:
+          description: Returns the match with the highest score based on the query.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Match"
+  /match/{matchKey}:
+    get:
+      summary: Match info
+      tags:
+        - Match
+      parameters:
+        - in: path
+          name: matchKey
+          schema:
+            type: string
+          required: true
+      responses:
+        200:
+          description: Returns match information about a specific match
           content:
             application/json:
               schema:
@@ -200,6 +515,44 @@ paths:
               examples:
                 freightFrenzy:
                   $ref: "#/components/examples/FreightFrenzyMatch"
+  /match/{matchKey}/details:
+    get:
+      summary: Match details
+      tags:
+        - Match
+      parameters:
+        - in: path
+          name: matchKey
+          schema:
+            type: string
+          required: true
+      responses:
+        200:
+          description: Returns match details about a specific match
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MatchDetails"
+  /match/{matchKey}/participants:
+    get:
+      summary: Match participants
+      tags:
+        - Match
+      parameters:
+        - in: path
+          name: matchKey
+          schema:
+            type: string
+          required: true
+      responses:
+        200:
+          description: Returns teams participating in the specified match
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/MatchParticipant"
 
 components:
   responses:
