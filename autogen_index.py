@@ -8,7 +8,7 @@ files = glob.glob("./openapi/types/**/[!_]*.yml", recursive=True)
 output = ""
 
 for file in files:
-    name = basename(file)
+    name = basename(file).split(".")[0]
     relative_path = relpath(file, "./openapi/types")
     output += f'{name}:\n  $ref: "./{relative_path}"\n'
 
