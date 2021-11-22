@@ -553,6 +553,389 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/MatchParticipant"
+  /team:
+    get:
+      summary: All teams
+      tags:
+        - Team
+      parameters:
+        - in: query
+          name: league_key
+          schema:
+            type: string
+          required: false
+        - in: query
+          name: region_key
+          schema:
+            type: string
+          required: false
+        - in: query
+          name: last_active
+          schema:
+            type: string
+          required: false
+        - in: query
+          name: country
+          schema:
+            type: string
+          required: false
+        - in: query
+          name: start
+          schema:
+            type: number
+          required: false
+        - in: query
+          name: count
+          schema:
+            type: number
+            minimum: 0
+            maximum: 500
+            default: 500
+          required: false
+      responses:
+        200:
+          description: Returns all teams
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Team"
+  /team/size:
+    get:
+      summary: Team count
+      tags:
+        - Team
+      responses:
+        200:
+          description: Returns the amount of teams in the database
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: integer
+  /team/{teamKey}:
+    get:
+      summary: Team info
+      tags:
+        - Team
+      parameters:
+        - in: path
+          name: teamKey
+          schema:
+            type: number
+            minimum: 1
+          required: true
+      responses:
+        200:
+          description: Returns basic information on the specific team
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Team"
+  /team/{teamKey}/wlt:
+    get:
+      summary: Team WLT record
+      tags:
+        - Team
+      parameters:
+        - in: path
+          name: teamKey
+          schema:
+            type: number
+            minimum: 1
+          required: true
+      responses:
+        200:
+          description: Returns the Win/Loss/Tie record of the specified team (includes elimination matches)
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    wins:
+                      type: number
+                    losses:
+                      type: number
+                    ties:
+                      type: number
+  /team/{teamKey}/events/{seasonKey}:
+    get:
+      summary: Team events
+      tags:
+        - Team
+        - Event
+      parameters:
+        - in: path
+          name: teamKey
+          schema:
+            type: number
+            minimum: 1
+          required: true
+        - in: path
+          name: seasonKey
+          schema:
+            type: string
+          required: true
+      responses:
+        200:
+          description: Returns all events a team participated in for a given season
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/EventParticipant"
+  /team/{teamKey}/matches/{seasonKey}:
+    get:
+      summary: Team matches
+      tags:
+        - Team
+        - Match
+      parameters:
+        - in: path
+          name: teamKey
+          schema:
+            type: number
+            minimum: 1
+          required: true
+        - in: path
+          name: seasonKey
+          schema:
+            type: string
+          required: true
+      responses:
+        200:
+          description: Returns all matches a team participated in for a given season
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/MatchParticipant"
+  /team/{teamKey}/awards/{seasonKey}:
+    get:
+      summary: Team awards
+      tags:
+        - Team
+      parameters:
+        - in: path
+          name: teamKey
+          schema:
+            type: number
+            minimum: 1
+          required: true
+        - in: path
+          name: seasonKey
+          schema:
+            type: string
+          required: true
+      responses:
+        200:
+          description: Returns all awardsa team received for a given season
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/AwardRecipient"
+  /team/{teamKey}/results/{seasonKey}:
+    get:
+      summary: Team results
+      tags:
+        - Team
+      parameters:
+        - in: path
+          name: teamKey
+          schema:
+            type: number
+            minimum: 1
+          required: true
+        - in: path
+          name: seasonKey
+          schema:
+            type: string
+          required: true
+      responses:
+        200:
+          description: Returns final rankings for a team in a specific season
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Ranking"
+  /team/{teamKey}/media/{seasonKey}:
+    get:
+      summary: Team media
+      tags:
+        - Team
+      parameters:
+        - in: path
+          name: teamKey
+          schema:
+            type: number
+            minimum: 1
+          required: true
+        - in: path
+          name: seasonKey
+          schema:
+            type: string
+          required: true
+      responses:
+        200:
+          description: Returns all media uploaded for a team in a given season
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Media"
+  /team/history/{seasonKey}:
+    get:
+      summary: Historical teams
+      tags:
+        - Team
+      parameters:
+        - in: path
+          name: seasonKey
+          schema:
+            type: string
+          required: true
+        - in: query
+          name: league_key
+          schema:
+            type: string
+          required: false
+        - in: query
+          name: region_key
+          schema:
+            type: string
+          required: false
+        - in: query
+          name: last_active
+          schema:
+            type: string
+          required: false
+        - in: query
+          name: country
+          schema:
+            type: string
+          required: false
+        - in: query
+          name: start
+          schema:
+            type: number
+          required: false
+        - in: query
+          name: count
+          schema:
+            type: number
+            minimum: 0
+            maximum: 500
+            default: 500
+          required: false
+      responses:
+        200:
+          description: Returns all teams, as they were in TIMS at the end of the requested season
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Team"
+  /team/history/{seasonKey}/{teamKey}:
+    get:
+      summary: Historical team
+      tags:
+        - Team
+      parameters:
+        - in: path
+          name: seasonKey
+          schema:
+            type: string
+          required: true
+        - in: path
+          name: teamKey
+          schema:
+            type: number
+            minimum: 1
+          required: true
+      responses:
+        200:
+          description: Returns a team, as it was in TIMS at the end of the requested season
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Team"
+
+  /web/announcements:
+    get:
+      summary: Live web announcements
+      tags:
+        - Web
+      responses:
+        200:
+          description: Returns all live web announcements
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/WebAnnouncement"
+
+  /league/{leagueKey}:
+    get:
+      summary: League info
+      tags:
+        - League
+      parameters:
+        - in: path
+          name: leagueKey
+          schema:
+            type: string
+          required: true
+      responses:
+        200:
+          description: Returns information on the given league
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/League"
+  /league/divisions:
+    get:
+      summary: League divisions
+      tags:
+        - League
+      parameters:
+        - in: query
+          name: league_key
+          schema:
+            type: string
+          required: false
+        - in: query
+          name: region_key
+          schema:
+            type: string
+          required: false
+        - in: query
+          name: season_key
+          schema:
+            type: string
+          required: false
+      responses:
+        200:
+          description: Returns all league divisions
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/LeagueDiv"
 
 components:
   responses:
