@@ -5,3647 +5,41 @@ info:
   description: 'The Goal of TOA API is to provide us, and potential outside users a way to query our databases.'
 servers:
   - url: 'https://theorangealliance.org/api'
-paths:
-  /:
-    get:
-      summary: API Version
-      tags:
-        - API
-      responses:
-        '200':
-          description: Gives the version info of the API.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  version:
-                    type: string
-  /docs:
-    get:
-      summary: TODO
-      tags:
-        - API
-      responses:
-        '200':
-          description: Unfinished.
-  /docs/get:
-    get:
-      summary: TODO
-      tags:
-        - API
-      responses:
-        '200':
-          description: Unfinished.
-  /docs/post:
-    get:
-      summary: TODO
-      tags:
-        - API
-      responses:
-        '200':
-          description: Unfinished.
-  /docs/put:
-    get:
-      summary: TODO
-      tags:
-        - API
-      responses:
-        '200':
-          description: Unfinished.
-  /docs/models:
-    get:
-      summary: TODO
-      tags:
-        - API
-      responses:
-        '200':
-          description: Unfinished.
-  /event-types:
-    get:
-      summary: Returns all event types.
-      tags:
-        - API
-        - Event
-      responses:
-        '200':
-          description: Returns all the possible event types
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    event_type_key:
-                      type: string
-                    description:
-                      type: string
-  /seasons:
-    get:
-      summary: Get all FTC seasons
-      tags:
-        - API
-      responses:
-        '200':
-          description: Return all FTC seasons
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    season_key:
-                      type: string
-                    description:
-                      type: string
-                    is_active:
-                      type: string
-  /regions:
-    get:
-      summary: Get all FTC regions
-      tags:
-        - API
-      responses:
-        '200':
-          description: Return all FTC regions
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    region_key:
-                      type: string
-                    description:
-                      type: string
-  /leagues:
-    get:
-      summary: Get all FTC leagues
-      tags:
-        - API
-      responses:
-        '200':
-          description: Return all FTC leagues
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    league_key:
-                      type: string
-                    region_key:
-                      type: string
-                    season_key:
-                      type: string
-                    league_division:
-                      type: string
-                    league_description:
-                      type: string
-  /streams:
-    get:
-      summary: Get all active livestreams
-      tags:
-        - API
-        - Event
-      responses:
-        '200':
-          description: Return all active event livestreams
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    stream_key:
-                      type: string
-                    event_key:
-                      type: string
-                    channel_name:
-                      type: string
-                    stream_name:
-                      type: string
-                    stream_type:
-                      type: number
-                    is_active:
-                      type: boolean
-                    url:
-                      type: string
-                    start_datetime:
-                      type: string
-                    end_datetime:
-                      type: string
-                    channel_url:
-                      type: number
-  /event:
-    get:
-      summary: Return all events based on the given query
-      tags:
-        - Event
-      parameters:
-        - in: query
-          name: league_key
-          schema:
-            type: string
-          description: Filter events by league
-        - in: query
-          name: region_key
-          schema:
-            type: string
-          description: Filter events by region
-        - in: query
-          name: season_key
-          schema:
-            type: string
-          description: Filter events by season
-        - in: query
-          name: type
-          schema:
-            type: string
-          description: Filter events by their type
-      responses:
-        '200':
-          description: Return all events using the given query
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    event_key:
-                      type: string
-                    season_key:
-                      type: string
-                    region_key:
-                      type: string
-                    league_key:
-                      type: string
-                    event_code:
-                      type: string
-                    event_type_key:
-                      type: string
-                    division_key:
-                      type: number
-                    division_name:
-                      type: string
-                    event_name:
-                      type: string
-                    start_date:
-                      type: string
-                    end_date:
-                      type: string
-                    week_key:
-                      type: string
-                    city:
-                      type: string
-                    state_prov:
-                      type: string
-                    country:
-                      type: string
-                    venue:
-                      type: string
-                    website:
-                      type: string
-                    time_zone:
-                      type: string
-                    is_public:
-                      type: boolean
-                    data_source:
-                      type: number
-  /event/size:
-    get:
-      summary: Event count
-      tags:
-        - Event
-      responses:
-        '200':
-          description: Returns the amount of events in the database
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  result:
-                    type: integer
-  '/event/{eventKey}':
-    get:
-      summary: Specific event details
-      tags:
-        - Event
-      parameters:
-        - in: path
-          name: eventKey
-          schema:
-            type: string
-          required: true
-      responses:
-        '200':
-          description: Returns event information for a specific event
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  event_key:
-                    type: string
-                  season_key:
-                    type: string
-                  region_key:
-                    type: string
-                  league_key:
-                    type: string
-                  event_code:
-                    type: string
-                  event_type_key:
-                    type: string
-                  division_key:
-                    type: number
-                  division_name:
-                    type: string
-                  event_name:
-                    type: string
-                  start_date:
-                    type: string
-                  end_date:
-                    type: string
-                  week_key:
-                    type: string
-                  city:
-                    type: string
-                  state_prov:
-                    type: string
-                  country:
-                    type: string
-                  venue:
-                    type: string
-                  website:
-                    type: string
-                  time_zone:
-                    type: string
-                  is_public:
-                    type: boolean
-                  data_source:
-                    type: number
-  '/event/{eventKey}/matches':
-    get:
-      summary: Event matches
-      tags:
-        - Event
-        - Match
-      parameters:
-        - in: path
-          name: eventKey
-          schema:
-            type: string
-          required: true
-      responses:
-        '200':
-          description: Returns all matches for a specific event
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    match_key:
-                      type: string
-                    event_key:
-                      type: string
-                    tournament_level:
-                      type: number
-                    scheduled_time:
-                      type: string
-                    match_name:
-                      type: string
-                    play_number:
-                      type: number
-                    field_number:
-                      type: number
-                    prestart_time:
-                      type: string
-                    match_start_time:
-                      type: string
-                    prestart_count:
-                      type: number
-                    cycle_time:
-                      type: string
-                    red_score:
-                      type: number
-                    blue_score:
-                      type: number
-                    red_penalty:
-                      type: number
-                    blue_penalty:
-                      type: number
-                    red_auto_score:
-                      type: number
-                    blue_auto_score:
-                      type: number
-                    red_tele_score:
-                      type: number
-                    blue_tele_score:
-                      type: number
-                    red_end_score:
-                      type: number
-                    blue_end_score:
-                      type: number
-                    video_url:
-                      type: number
-                    participants:
-                      type: array
-                      items:
-                        type: object
-                        properties:
-                          event_participant_key:
-                            type: string
-                          event_key:
-                            type: string
-                          team_key:
-                            type: string
-                          is_active:
-                            type: boolean
-                          card_status:
-                            type: string
-                          team:
-                            type: object
-                            properties:
-                              team_key:
-                                type: string
-                              region_key:
-                                type: string
-                              league_key:
-                                type: string
-                              team_number:
-                                type: number
-                              team_name_short:
-                                type: string
-                              team_name_long:
-                                type: string
-                              robot_name:
-                                type: string
-                              last_active:
-                                type: number
-                              city:
-                                type: string
-                              state_prov:
-                                type: string
-                              zip_code:
-                                type: number
-                              country:
-                                type: string
-                              rookie_year:
-                                type: number
-                              website:
-                                type: string
-                          event:
-                            type: object
-                            properties:
-                              event_key:
-                                type: string
-                              season_key:
-                                type: string
-                              region_key:
-                                type: string
-                              league_key:
-                                type: string
-                              event_code:
-                                type: string
-                              event_type_key:
-                                type: string
-                              division_key:
-                                type: number
-                              division_name:
-                                type: string
-                              event_name:
-                                type: string
-                              start_date:
-                                type: string
-                              end_date:
-                                type: string
-                              week_key:
-                                type: string
-                              city:
-                                type: string
-                              state_prov:
-                                type: string
-                              country:
-                                type: string
-                              venue:
-                                type: string
-                              website:
-                                type: string
-                              time_zone:
-                                type: string
-                              is_public:
-                                type: boolean
-                              data_source:
-                                type: number
-                          is_league_team:
-                            type: boolean
-                          league_team_name:
-                            type: string
-  '/event/{eventKey}/matches/details':
-    get:
-      summary: Event match details
-      tags:
-        - Event
-        - Match
-      parameters:
-        - in: path
-          name: eventKey
-          schema:
-            type: string
-          required: true
-      responses:
-        '200':
-          description: Returns all match details for a specific event
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    match_detail_key:
-                      type: string
-                    match_key:
-                      type: string
-                    red_min_pen:
-                      type: number
-                    blue_min_pen:
-                      type: number
-                    red_maj_pen:
-                      type: number
-                    blue_maj_pen:
-                      type: number
-  '/event/{eventKey}/matches/participants':
-    get:
-      summary: Event match participants
-      tags:
-        - Event
-        - Match
-      parameters:
-        - in: path
-          name: eventKey
-          schema:
-            type: string
-          required: true
-      responses:
-        '200':
-          description: Returns all teams that participated in each match at a specific event
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    match_participant_key:
-                      type: string
-                    match_key:
-                      type: string
-                    team_key:
-                      type: string
-                    station:
-                      type: number
-                    station_status:
-                      type: number
-                    ref_status:
-                      type: number
-                    team:
-                      type: object
-                      properties:
-                        team_key:
-                          type: string
-                        region_key:
-                          type: string
-                        league_key:
-                          type: string
-                        team_number:
-                          type: number
-                        team_name_short:
-                          type: string
-                        team_name_long:
-                          type: string
-                        robot_name:
-                          type: string
-                        last_active:
-                          type: number
-                        city:
-                          type: string
-                        state_prov:
-                          type: string
-                        zip_code:
-                          type: number
-                        country:
-                          type: string
-                        rookie_year:
-                          type: number
-                        website:
-                          type: string
-                    is_league_team:
-                      type: boolean
-  '/event/{eventKey}/rankings':
-    get:
-      summary: Event rankings
-      tags:
-        - Event
-      parameters:
-        - in: path
-          name: eventKey
-          schema:
-            type: string
-          required: true
-      responses:
-        '200':
-          description: Returns team rankings for a specific event
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    rank_key:
-                      type: string
-                    event_key:
-                      type: string
-                    team_key:
-                      type: string
-                    rank:
-                      type: number
-                    rank_change:
-                      type: number
-                    opr:
-                      type: number
-                    np_opr:
-                      type: number
-                    wins:
-                      type: number
-                    losses:
-                      type: number
-                    ties:
-                      type: number
-                    highest_qual_score:
-                      type: number
-                    ranking_points:
-                      type: number
-                    qualifying_points:
-                      type: number
-                    tie_breaker_points:
-                      type: number
-                    disqualified:
-                      type: number
-                    played:
-                      type: number
-                    team:
-                      type: object
-                      properties:
-                        team_key:
-                          type: string
-                        region_key:
-                          type: string
-                        league_key:
-                          type: string
-                        team_number:
-                          type: number
-                        team_name_short:
-                          type: string
-                        team_name_long:
-                          type: string
-                        robot_name:
-                          type: string
-                        last_active:
-                          type: number
-                        city:
-                          type: string
-                        state_prov:
-                          type: string
-                        zip_code:
-                          type: number
-                        country:
-                          type: string
-                        rookie_year:
-                          type: number
-                        website:
-                          type: string
-  '/event/{eventKey}/insights':
-    get:
-      summary: Event insights
-      tags:
-        - Event
-        - Insights
-      parameters:
-        - in: path
-          name: eventKey
-          schema:
-            type: string
-          required: true
-        - in: query
-          name: type
-          description: Specific type of insights. (quals or elims)
-          required: true
-          schema:
-            type: string
-            enum:
-              - quals
-              - elims
-      responses:
-        '200':
-          description: Returns insights for a specific event
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    high_score_match:
-                      type: object
-                      properties:
-                        match_key:
-                          type: string
-                        event_key:
-                          type: string
-                        tournament_level:
-                          type: number
-                        scheduled_time:
-                          type: string
-                        match_name:
-                          type: string
-                        play_number:
-                          type: number
-                        field_number:
-                          type: number
-                        prestart_time:
-                          type: string
-                        match_start_time:
-                          type: string
-                        prestart_count:
-                          type: number
-                        cycle_time:
-                          type: string
-                        red_score:
-                          type: number
-                        blue_score:
-                          type: number
-                        red_penalty:
-                          type: number
-                        blue_penalty:
-                          type: number
-                        red_auto_score:
-                          type: number
-                        blue_auto_score:
-                          type: number
-                        red_tele_score:
-                          type: number
-                        blue_tele_score:
-                          type: number
-                        red_end_score:
-                          type: number
-                        blue_end_score:
-                          type: number
-                        video_url:
-                          type: number
-                        participants:
-                          type: array
-                          items:
-                            type: object
-                            properties:
-                              event_participant_key:
-                                type: string
-                              event_key:
-                                type: string
-                              team_key:
-                                type: string
-                              is_active:
-                                type: boolean
-                              card_status:
-                                type: string
-                              team:
-                                type: object
-                                properties:
-                                  team_key:
-                                    type: string
-                                  region_key:
-                                    type: string
-                                  league_key:
-                                    type: string
-                                  team_number:
-                                    type: number
-                                  team_name_short:
-                                    type: string
-                                  team_name_long:
-                                    type: string
-                                  robot_name:
-                                    type: string
-                                  last_active:
-                                    type: number
-                                  city:
-                                    type: string
-                                  state_prov:
-                                    type: string
-                                  zip_code:
-                                    type: number
-                                  country:
-                                    type: string
-                                  rookie_year:
-                                    type: number
-                                  website:
-                                    type: string
-                              event:
-                                type: object
-                                properties:
-                                  event_key:
-                                    type: string
-                                  season_key:
-                                    type: string
-                                  region_key:
-                                    type: string
-                                  league_key:
-                                    type: string
-                                  event_code:
-                                    type: string
-                                  event_type_key:
-                                    type: string
-                                  division_key:
-                                    type: number
-                                  division_name:
-                                    type: string
-                                  event_name:
-                                    type: string
-                                  start_date:
-                                    type: string
-                                  end_date:
-                                    type: string
-                                  week_key:
-                                    type: string
-                                  city:
-                                    type: string
-                                  state_prov:
-                                    type: string
-                                  country:
-                                    type: string
-                                  venue:
-                                    type: string
-                                  website:
-                                    type: string
-                                  time_zone:
-                                    type: string
-                                  is_public:
-                                    type: boolean
-                                  data_source:
-                                    type: number
-                              is_league_team:
-                                type: boolean
-                              league_team_name:
-                                type: string
-                    average_match_score:
-                      type: number
-                    average_winning_score:
-                      type: number
-                    average_winning_margin:
-                      type: number
-                    game:
-                      oneOf:
-                        - type: object
-                          properties:
-                            auto_percent_landing:
-                              type: number
-                            auto_percent_sampling:
-                              type: number
-                            auto_percent_claiming:
-                              type: number
-                            auto_percent_parking:
-                              type: number
-                            tele_avg_golds:
-                              type: number
-                            tele_avg_silvers:
-                              type: number
-                            tele_avg_depot_minerals:
-                              type: number
-                            end_percent_latched:
-                              type: number
-                            end_percent_parked:
-                              type: number
-                        - type: object
-                          properties:
-                            auto_average_glyphs:
-                              type: number
-                            tele_average_glyphs:
-                              type: number
-                            tele_average_ciphers:
-                              type: number
-                            end_average_relic1:
-                              type: number
-                            end_average_relic2:
-                              type: number
-                            end_average_relic3:
-                              type: number
-                            end_percent_relics_standing:
-                              type: number
-                            end_average_balanced:
-                              type: number
-                        - type: object
-                          properties:
-                            auto_average_skystones_delivered:
-                              type: number
-                            auto_average_stones_delivered:
-                              type: number
-                            auto_average_placed:
-                              type: number
-                            auto_percent_parked:
-                              type: number
-                            percent_foundation_moved:
-                              type: number
-                            percent_foundation_repositioned:
-                              type: number
-                            tele_average_placed:
-                              type: number
-                            tele_average_returned:
-                              type: number
-                            tele_average_delivered:
-                              type: number
-                            end_average_cap_level:
-                              type: number
-                            end_average_tower_bonus:
-                              type: number
-                            end_average_cap_bonus:
-                              type: number
-                            end_average_level_bonus:
-                              type: number
-                            end_percent_parked:
-                              type: number
-                            auto_percent_naved:
-                              type: number
-                        - type: object
-                          properties:
-                            auto_average_rings_scored_high:
-                              type: number
-                            auto_average_rings_scored_mid:
-                              type: number
-                            auto_average_rings_scored_low:
-                              type: number
-                            auto_average_power_shots:
-                              type: number
-                            auto_percent_wobbles_delivered:
-                              type: number
-                            auto_percent_navigated:
-                              type: number
-                            tele_average_rings_scored_high:
-                              type: number
-                            tele_average_rings_scored_mid:
-                              type: number
-                            tele_average_rings_scored_low:
-                              type: number
-                            end_average_rings_on_wobble:
-                              type: number
-                            end_percent_wobbles_on_start:
-                              type: number
-                            end_percent_wobbles_in_drop_zone:
-                              type: number
-                            end_average_power_shots:
-                              type: number
-                        - type: object
-                          properties:
-                            auto_percent_partially_in_storage:
-                              type: number
-                            auto_percent_complete_in_storage:
-                              type: number
-                            auto_percent_partially_in_warehouse:
-                              type: number
-                            auto_percent_completely_in_warehouse:
-                              type: number
-                            auto_percent_bonuses_earned:
-                              type: number
-                            auto_average_storage_freight:
-                              type: number
-                            auto_average_freight_1:
-                              type: number
-                            auto_average_freight_2:
-                              type: number
-                            auto_average_freight_3:
-                              type: number
-                            tele_average_freight_1:
-                              type: number
-                            tele_average_freight_2:
-                              type: number
-                            tele_average_freight_3:
-                              type: number
-                            tele_average_shared_freight:
-                              type: number
-                            end_average_delivered:
-                              type: number
-                            end_percent_hub_balanced:
-                              type: number
-                            end_percent_shared_hub_unbalanced:
-                              type: number
-                            end_percent_partially_in_warehouse:
-                              type: number
-                            end_percent_completely_in_warehouse:
-                              type: number
-                            percent_capped:
-                              type: number
-                            percent_carousel:
-                              type: number
-  '/event/{eventKey}/alliances':
-    get:
-      summary: Event alliances
-      tags:
-        - Event
-      parameters:
-        - in: path
-          name: eventKey
-          schema:
-            type: string
-          required: true
-      responses:
-        '200':
-          description: Returns elimination alliances for a specific event
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    seed:
-                      type: number
-                    captain:
-                      type: object
-                      properties:
-                        team_key:
-                          type: string
-                        region_key:
-                          type: string
-                        league_key:
-                          type: string
-                        team_number:
-                          type: number
-                        team_name_short:
-                          type: string
-                        team_name_long:
-                          type: string
-                        robot_name:
-                          type: string
-                        last_active:
-                          type: number
-                        city:
-                          type: string
-                        state_prov:
-                          type: string
-                        zip_code:
-                          type: number
-                        country:
-                          type: string
-                        rookie_year:
-                          type: number
-                        website:
-                          type: string
-                    pick1:
-                      type: object
-                      properties:
-                        team_key:
-                          type: string
-                        region_key:
-                          type: string
-                        league_key:
-                          type: string
-                        team_number:
-                          type: number
-                        team_name_short:
-                          type: string
-                        team_name_long:
-                          type: string
-                        robot_name:
-                          type: string
-                        last_active:
-                          type: number
-                        city:
-                          type: string
-                        state_prov:
-                          type: string
-                        zip_code:
-                          type: number
-                        country:
-                          type: string
-                        rookie_year:
-                          type: number
-                        website:
-                          type: string
-                    pick2:
-                      type: object
-                      properties:
-                        team_key:
-                          type: string
-                        region_key:
-                          type: string
-                        league_key:
-                          type: string
-                        team_number:
-                          type: number
-                        team_name_short:
-                          type: string
-                        team_name_long:
-                          type: string
-                        robot_name:
-                          type: string
-                        last_active:
-                          type: number
-                        city:
-                          type: string
-                        state_prov:
-                          type: string
-                        zip_code:
-                          type: number
-                        country:
-                          type: string
-                        rookie_year:
-                          type: number
-                        website:
-                          type: string
-                      nullable: true
-  '/event/{eventKey}/streams':
-    get:
-      summary: Event livestreams
-      tags:
-        - Event
-      parameters:
-        - in: path
-          name: eventKey
-          schema:
-            type: string
-          required: true
-      responses:
-        '200':
-          description: Returns all available livestreams for a specific event
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    stream_key:
-                      type: string
-                    event_key:
-                      type: string
-                    channel_name:
-                      type: string
-                    stream_name:
-                      type: string
-                    stream_type:
-                      type: number
-                    is_active:
-                      type: boolean
-                    url:
-                      type: string
-                    start_datetime:
-                      type: string
-                    end_datetime:
-                      type: string
-                    channel_url:
-                      type: number
-  '/event/{eventKey}/teams':
-    get:
-      summary: Event teams
-      tags:
-        - Event
-      parameters:
-        - in: path
-          name: eventKey
-          schema:
-            type: string
-          required: true
-      responses:
-        '200':
-          description: Returns list of participating teams for a specific event
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    event_participant_key:
-                      type: string
-                    event_key:
-                      type: string
-                    team_key:
-                      type: string
-                    is_active:
-                      type: boolean
-                    card_status:
-                      type: string
-                    team:
-                      type: object
-                      properties:
-                        team_key:
-                          type: string
-                        region_key:
-                          type: string
-                        league_key:
-                          type: string
-                        team_number:
-                          type: number
-                        team_name_short:
-                          type: string
-                        team_name_long:
-                          type: string
-                        robot_name:
-                          type: string
-                        last_active:
-                          type: number
-                        city:
-                          type: string
-                        state_prov:
-                          type: string
-                        zip_code:
-                          type: number
-                        country:
-                          type: string
-                        rookie_year:
-                          type: number
-                        website:
-                          type: string
-                    event:
-                      type: object
-                      properties:
-                        event_key:
-                          type: string
-                        season_key:
-                          type: string
-                        region_key:
-                          type: string
-                        league_key:
-                          type: string
-                        event_code:
-                          type: string
-                        event_type_key:
-                          type: string
-                        division_key:
-                          type: number
-                        division_name:
-                          type: string
-                        event_name:
-                          type: string
-                        start_date:
-                          type: string
-                        end_date:
-                          type: string
-                        week_key:
-                          type: string
-                        city:
-                          type: string
-                        state_prov:
-                          type: string
-                        country:
-                          type: string
-                        venue:
-                          type: string
-                        website:
-                          type: string
-                        time_zone:
-                          type: string
-                        is_public:
-                          type: boolean
-                        data_source:
-                          type: number
-                    is_league_team:
-                      type: boolean
-                    league_team_name:
-                      type: string
-  '/event/{eventKey}/awards':
-    get:
-      summary: Event awards
-      tags:
-        - Event
-      parameters:
-        - in: path
-          name: eventKey
-          schema:
-            type: string
-          required: true
-      responses:
-        '200':
-          description: Returns all awards for a specific event
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    awards_key:
-                      type: string
-                    event_key:
-                      type: string
-                    award_key:
-                      type: string
-                    team_key:
-                      type: number
-                    receiver_name:
-                      type: string
-                    award_name:
-                      type: string
-                    award:
-                      type: object
-                      properties:
-                        award_key:
-                          type: string
-                        award_type:
-                          type: string
-                        award_description:
-                          type: string
-                        display_order:
-                          type: number
-                    team:
-                      type: object
-                      properties:
-                        team_key:
-                          type: string
-                        region_key:
-                          type: string
-                        league_key:
-                          type: string
-                        team_number:
-                          type: number
-                        team_name_short:
-                          type: string
-                        team_name_long:
-                          type: string
-                        robot_name:
-                          type: string
-                        last_active:
-                          type: number
-                        city:
-                          type: string
-                        state_prov:
-                          type: string
-                        zip_code:
-                          type: number
-                        country:
-                          type: string
-                        rookie_year:
-                          type: number
-                        website:
-                          type: string
-  '/event/{eventKey}/media':
-    get:
-      summary: Event media
-      tags:
-        - Event
-      parameters:
-        - in: path
-          name: eventKey
-          schema:
-            type: string
-          required: true
-      responses:
-        '200':
-          description: Returns all uploaded media for a specific event
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    media_key:
-                      type: string
-                    event_key:
-                      type: string
-                    team_key:
-                      type: string
-                    media_type:
-                      type: number
-                    is_primary:
-                      type: boolean
-                    media_title:
-                      type: string
-                    link:
-                      type: string
-  '/match/all/{seasonKey}':
-    get:
-      summary: Matches from season
-      tags:
-        - Match
-      parameters:
-        - in: path
-          name: seasonKey
-          schema:
-            type: string
-          required: true
-        - in: query
-          name: start
-          description: 'The place in the database to start, used for pagination'
-          required: false
-          schema:
-            type: number
-        - in: query
-          name: count
-          description: 'Number of matches to return (max 500, default 500)'
-          schema:
-            type: number
-            minimum: 0
-            maximum: 500
-            default: 500
-      responses:
-        '200':
-          description: All matches from a specific season.
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    match_key:
-                      type: string
-                    event_key:
-                      type: string
-                    tournament_level:
-                      type: number
-                    scheduled_time:
-                      type: string
-                    match_name:
-                      type: string
-                    play_number:
-                      type: number
-                    field_number:
-                      type: number
-                    prestart_time:
-                      type: string
-                    match_start_time:
-                      type: string
-                    prestart_count:
-                      type: number
-                    cycle_time:
-                      type: string
-                    red_score:
-                      type: number
-                    blue_score:
-                      type: number
-                    red_penalty:
-                      type: number
-                    blue_penalty:
-                      type: number
-                    red_auto_score:
-                      type: number
-                    blue_auto_score:
-                      type: number
-                    red_tele_score:
-                      type: number
-                    blue_tele_score:
-                      type: number
-                    red_end_score:
-                      type: number
-                    blue_end_score:
-                      type: number
-                    video_url:
-                      type: number
-                    participants:
-                      type: array
-                      items:
-                        type: object
-                        properties:
-                          event_participant_key:
-                            type: string
-                          event_key:
-                            type: string
-                          team_key:
-                            type: string
-                          is_active:
-                            type: boolean
-                          card_status:
-                            type: string
-                          team:
-                            type: object
-                            properties:
-                              team_key:
-                                type: string
-                              region_key:
-                                type: string
-                              league_key:
-                                type: string
-                              team_number:
-                                type: number
-                              team_name_short:
-                                type: string
-                              team_name_long:
-                                type: string
-                              robot_name:
-                                type: string
-                              last_active:
-                                type: number
-                              city:
-                                type: string
-                              state_prov:
-                                type: string
-                              zip_code:
-                                type: number
-                              country:
-                                type: string
-                              rookie_year:
-                                type: number
-                              website:
-                                type: string
-                          event:
-                            type: object
-                            properties:
-                              event_key:
-                                type: string
-                              season_key:
-                                type: string
-                              region_key:
-                                type: string
-                              league_key:
-                                type: string
-                              event_code:
-                                type: string
-                              event_type_key:
-                                type: string
-                              division_key:
-                                type: number
-                              division_name:
-                                type: string
-                              event_name:
-                                type: string
-                              start_date:
-                                type: string
-                              end_date:
-                                type: string
-                              week_key:
-                                type: string
-                              city:
-                                type: string
-                              state_prov:
-                                type: string
-                              country:
-                                type: string
-                              venue:
-                                type: string
-                              website:
-                                type: string
-                              time_zone:
-                                type: string
-                              is_public:
-                                type: boolean
-                              data_source:
-                                type: number
-                          is_league_team:
-                            type: boolean
-                          league_team_name:
-                            type: string
-  /match/size:
-    get:
-      summary: Match count
-      tags:
-        - Match
-      responses:
-        '200':
-          description: Returns the amount of matches in the current season database
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  result:
-                    type: integer
-  /match/high-scores:
-    get:
-      summary: High scoring matches
-      tags:
-        - Match
-      parameters:
-        - in: query
-          name: type
-          description: Type of match to search by
-          schema:
-            type: string
-            enum:
-              - quals
-              - elims
-              - single_team
-              - all
-          required: false
-        - in: query
-          name: season_key
-          description: Season to query by
-          schema:
-            type: string
-          required: false
-        - in: query
-          name: penalty
-          description: Whether to include matches with penalties
-          schema:
-            type: boolean
-          required: false
-      responses:
-        '200':
-          description: Returns the match with the highest score based on the query.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  match_key:
-                    type: string
-                  event_key:
-                    type: string
-                  tournament_level:
-                    type: number
-                  scheduled_time:
-                    type: string
-                  match_name:
-                    type: string
-                  play_number:
-                    type: number
-                  field_number:
-                    type: number
-                  prestart_time:
-                    type: string
-                  match_start_time:
-                    type: string
-                  prestart_count:
-                    type: number
-                  cycle_time:
-                    type: string
-                  red_score:
-                    type: number
-                  blue_score:
-                    type: number
-                  red_penalty:
-                    type: number
-                  blue_penalty:
-                    type: number
-                  red_auto_score:
-                    type: number
-                  blue_auto_score:
-                    type: number
-                  red_tele_score:
-                    type: number
-                  blue_tele_score:
-                    type: number
-                  red_end_score:
-                    type: number
-                  blue_end_score:
-                    type: number
-                  video_url:
-                    type: number
-                  participants:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        event_participant_key:
-                          type: string
-                        event_key:
-                          type: string
-                        team_key:
-                          type: string
-                        is_active:
-                          type: boolean
-                        card_status:
-                          type: string
-                        team:
-                          type: object
-                          properties:
-                            team_key:
-                              type: string
-                            region_key:
-                              type: string
-                            league_key:
-                              type: string
-                            team_number:
-                              type: number
-                            team_name_short:
-                              type: string
-                            team_name_long:
-                              type: string
-                            robot_name:
-                              type: string
-                            last_active:
-                              type: number
-                            city:
-                              type: string
-                            state_prov:
-                              type: string
-                            zip_code:
-                              type: number
-                            country:
-                              type: string
-                            rookie_year:
-                              type: number
-                            website:
-                              type: string
-                        event:
-                          type: object
-                          properties:
-                            event_key:
-                              type: string
-                            season_key:
-                              type: string
-                            region_key:
-                              type: string
-                            league_key:
-                              type: string
-                            event_code:
-                              type: string
-                            event_type_key:
-                              type: string
-                            division_key:
-                              type: number
-                            division_name:
-                              type: string
-                            event_name:
-                              type: string
-                            start_date:
-                              type: string
-                            end_date:
-                              type: string
-                            week_key:
-                              type: string
-                            city:
-                              type: string
-                            state_prov:
-                              type: string
-                            country:
-                              type: string
-                            venue:
-                              type: string
-                            website:
-                              type: string
-                            time_zone:
-                              type: string
-                            is_public:
-                              type: boolean
-                            data_source:
-                              type: number
-                        is_league_team:
-                          type: boolean
-                        league_team_name:
-                          type: string
-  '/match/{matchKey}':
-    get:
-      summary: Match info
-      tags:
-        - Match
-      parameters:
-        - in: path
-          name: matchKey
-          schema:
-            type: string
-          required: true
-      responses:
-        '200':
-          description: Returns match information about a specific match
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  match_key:
-                    type: string
-                  event_key:
-                    type: string
-                  tournament_level:
-                    type: number
-                  scheduled_time:
-                    type: string
-                  match_name:
-                    type: string
-                  play_number:
-                    type: number
-                  field_number:
-                    type: number
-                  prestart_time:
-                    type: string
-                  match_start_time:
-                    type: string
-                  prestart_count:
-                    type: number
-                  cycle_time:
-                    type: string
-                  red_score:
-                    type: number
-                  blue_score:
-                    type: number
-                  red_penalty:
-                    type: number
-                  blue_penalty:
-                    type: number
-                  red_auto_score:
-                    type: number
-                  blue_auto_score:
-                    type: number
-                  red_tele_score:
-                    type: number
-                  blue_tele_score:
-                    type: number
-                  red_end_score:
-                    type: number
-                  blue_end_score:
-                    type: number
-                  video_url:
-                    type: number
-                  participants:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        event_participant_key:
-                          type: string
-                        event_key:
-                          type: string
-                        team_key:
-                          type: string
-                        is_active:
-                          type: boolean
-                        card_status:
-                          type: string
-                        team:
-                          type: object
-                          properties:
-                            team_key:
-                              type: string
-                            region_key:
-                              type: string
-                            league_key:
-                              type: string
-                            team_number:
-                              type: number
-                            team_name_short:
-                              type: string
-                            team_name_long:
-                              type: string
-                            robot_name:
-                              type: string
-                            last_active:
-                              type: number
-                            city:
-                              type: string
-                            state_prov:
-                              type: string
-                            zip_code:
-                              type: number
-                            country:
-                              type: string
-                            rookie_year:
-                              type: number
-                            website:
-                              type: string
-                        event:
-                          type: object
-                          properties:
-                            event_key:
-                              type: string
-                            season_key:
-                              type: string
-                            region_key:
-                              type: string
-                            league_key:
-                              type: string
-                            event_code:
-                              type: string
-                            event_type_key:
-                              type: string
-                            division_key:
-                              type: number
-                            division_name:
-                              type: string
-                            event_name:
-                              type: string
-                            start_date:
-                              type: string
-                            end_date:
-                              type: string
-                            week_key:
-                              type: string
-                            city:
-                              type: string
-                            state_prov:
-                              type: string
-                            country:
-                              type: string
-                            venue:
-                              type: string
-                            website:
-                              type: string
-                            time_zone:
-                              type: string
-                            is_public:
-                              type: boolean
-                            data_source:
-                              type: number
-                        is_league_team:
-                          type: boolean
-                        league_team_name:
-                          type: string
-              examples:
-                freightFrenzy:
-                  FreightFrenzyMatch:
-                    summary: Match from 2021/2022 season (Freight Frenzy)
-                    value:
-                      - match_key: 2122-FIM-MOLM1-Q001-1
-                        event_key: 2122-FIM-MOLM1
-                        tournament_level: 1
-                        scheduled_time: '2021-11-01T18:26:00.000Z'
-                        match_name: Quals 1
-                        play_number: 1
-                        field_number: 1
-                        prestart_time: null
-                        match_start_time: null
-                        prestart_count: null
-                        cycle_time: null
-                        red_score: 77
-                        blue_score: 0
-                        red_penalty: 0
-                        blue_penalty: 2
-                        red_auto_score: 15
-                        blue_auto_score: 36
-                        red_tele_score: 42
-                        blue_tele_score: 0
-                        red_end_score: 20
-                        blue_end_score: 0
-                        video_url: null
-                        participants:
-                          - match_participant_key: 2122-FIM-MOLM1-Q001-1-R1
-                            match_key: 2122-FIM-MOLM1-Q001-1
-                            team_key: '8478'
-                            station: 11
-                            station_status: 1
-                            ref_status: 0
-                            team:
-                              team_key: '8478'
-                              region_key: FIM
-                              league_key: null
-                              team_number: 8478
-                              team_name_short: E-Bots
-                              team_name_long: Hart Middle School PTSA&Hart Middle School
-                              robot_name: null
-                              last_active: '2122'
-                              city: Rochester
-                              state_prov: MI
-                              zip_code: '48307'
-                              country: USA
-                              rookie_year: 2014
-                              website: 'http://www.ebots8478.com'
-                          - match_participant_key: 2122-FIM-MOLM1-Q001-1-R2
-                            match_key: 2122-FIM-MOLM1-Q001-1
-                            team_key: '11717'
-                            station: 12
-                            station_status: 1
-                            ref_status: 0
-                            team:
-                              team_key: '11717'
-                              region_key: FIM
-                              league_key: null
-                              team_number: 11717
-                              team_name_short: Circuit Breakers
-                              team_name_long: REV Robotics/FCA Foundation/Spout Analytics/Michigan Department of Education&Baker Middle School&Boulan Park Middle School
-                              robot_name: null
-                              last_active: '2122'
-                              city: Troy
-                              state_prov: MI
-                              zip_code: '48083'
-                              country: USA
-                              rookie_year: 2016
-                              website: 'https://ftc11717.org'
-                          - match_participant_key: 2122-FIM-MOLM1-Q001-1-B1
-                            match_key: 2122-FIM-MOLM1-Q001-1
-                            team_key: '15004'
-                            station: 21
-                            station_status: 1
-                            ref_status: 0
-                            team:
-                              team_key: '15004'
-                              region_key: FIM
-                              league_key: null
-                              team_number: 15004
-                              team_name_short: Tech KNOW Logic
-                              team_name_long: Baker Middle School
-                              robot_name: null
-                              last_active: '2122'
-                              city: Troy
-                              state_prov: MI
-                              zip_code: '48083'
-                              country: USA
-                              rookie_year: 2018
-                              website: null
-                          - match_participant_key: 2122-FIM-MOLM1-Q001-1-B2
-                            match_key: 2122-FIM-MOLM1-Q001-1
-                            team_key: '17181'
-                            station: 22
-                            station_status: 1
-                            ref_status: 0
-                            team:
-                              team_key: '17181'
-                              region_key: FIM
-                              league_key: null
-                              team_number: 17181
-                              team_name_short: Vibranium Vikings
-                              team_name_long: DURMA/APTIV/ADAMBOTS &Van Hoosen Middle School
-                              robot_name: null
-                              last_active: '2122'
-                              city: Rochester
-                              state_prov: MI
-                              zip_code: '48306'
-                              country: USA
-                              rookie_year: 2019
-                              website: null
-  '/match/{matchKey}/details':
-    get:
-      summary: Match details
-      tags:
-        - Match
-      parameters:
-        - in: path
-          name: matchKey
-          schema:
-            type: string
-          required: true
-      responses:
-        '200':
-          description: Returns match details about a specific match
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  match_detail_key:
-                    type: string
-                  match_key:
-                    type: string
-                  red_min_pen:
-                    type: number
-                  blue_min_pen:
-                    type: number
-                  red_maj_pen:
-                    type: number
-                  blue_maj_pen:
-                    type: number
-  '/match/{matchKey}/participants':
-    get:
-      summary: Match participants
-      tags:
-        - Match
-      parameters:
-        - in: path
-          name: matchKey
-          schema:
-            type: string
-          required: true
-      responses:
-        '200':
-          description: Returns teams participating in the specified match
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    match_participant_key:
-                      type: string
-                    match_key:
-                      type: string
-                    team_key:
-                      type: string
-                    station:
-                      type: number
-                    station_status:
-                      type: number
-                    ref_status:
-                      type: number
-                    team:
-                      type: object
-                      properties:
-                        team_key:
-                          type: string
-                        region_key:
-                          type: string
-                        league_key:
-                          type: string
-                        team_number:
-                          type: number
-                        team_name_short:
-                          type: string
-                        team_name_long:
-                          type: string
-                        robot_name:
-                          type: string
-                        last_active:
-                          type: number
-                        city:
-                          type: string
-                        state_prov:
-                          type: string
-                        zip_code:
-                          type: number
-                        country:
-                          type: string
-                        rookie_year:
-                          type: number
-                        website:
-                          type: string
-                    is_league_team:
-                      type: boolean
-  /team:
-    get:
-      summary: All teams
-      tags:
-        - Team
-      parameters:
-        - in: query
-          name: league_key
-          schema:
-            type: string
-          required: false
-        - in: query
-          name: region_key
-          schema:
-            type: string
-          required: false
-        - in: query
-          name: last_active
-          schema:
-            type: string
-          required: false
-        - in: query
-          name: country
-          schema:
-            type: string
-          required: false
-        - in: query
-          name: start
-          schema:
-            type: number
-          required: false
-        - in: query
-          name: count
-          schema:
-            type: number
-            minimum: 0
-            maximum: 500
-            default: 500
-          required: false
-      responses:
-        '200':
-          description: Returns all teams
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    team_key:
-                      type: string
-                    region_key:
-                      type: string
-                    league_key:
-                      type: string
-                    team_number:
-                      type: number
-                    team_name_short:
-                      type: string
-                    team_name_long:
-                      type: string
-                    robot_name:
-                      type: string
-                    last_active:
-                      type: number
-                    city:
-                      type: string
-                    state_prov:
-                      type: string
-                    zip_code:
-                      type: number
-                    country:
-                      type: string
-                    rookie_year:
-                      type: number
-                    website:
-                      type: string
-  /team/size:
-    get:
-      summary: Team count
-      tags:
-        - Team
-      responses:
-        '200':
-          description: Returns the amount of teams in the database
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  result:
-                    type: integer
-  '/team/{teamKey}':
-    get:
-      summary: Team info
-      tags:
-        - Team
-      parameters:
-        - in: path
-          name: teamKey
-          schema:
-            type: number
-            minimum: 1
-          required: true
-      responses:
-        '200':
-          description: Returns basic information on the specific team
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  team_key:
-                    type: string
-                  region_key:
-                    type: string
-                  league_key:
-                    type: string
-                  team_number:
-                    type: number
-                  team_name_short:
-                    type: string
-                  team_name_long:
-                    type: string
-                  robot_name:
-                    type: string
-                  last_active:
-                    type: number
-                  city:
-                    type: string
-                  state_prov:
-                    type: string
-                  zip_code:
-                    type: number
-                  country:
-                    type: string
-                  rookie_year:
-                    type: number
-                  website:
-                    type: string
-  '/team/{teamKey}/wlt':
-    get:
-      summary: Team WLT record
-      tags:
-        - Team
-      parameters:
-        - in: path
-          name: teamKey
-          schema:
-            type: number
-            minimum: 1
-          required: true
-      responses:
-        '200':
-          description: Returns the Win/Loss/Tie record of the specified team (includes elimination matches)
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  wins:
-                    type: number
-                  losses:
-                    type: number
-                  ties:
-                    type: number
-  '/team/{teamKey}/events/{seasonKey}':
-    get:
-      summary: Team events
-      tags:
-        - Team
-        - Event
-      parameters:
-        - in: path
-          name: teamKey
-          schema:
-            type: number
-            minimum: 1
-          required: true
-        - in: path
-          name: seasonKey
-          schema:
-            type: string
-          required: true
-      responses:
-        '200':
-          description: Returns all events a team participated in for a given season
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    event_participant_key:
-                      type: string
-                    event_key:
-                      type: string
-                    team_key:
-                      type: string
-                    is_active:
-                      type: boolean
-                    card_status:
-                      type: string
-                    team:
-                      type: object
-                      properties:
-                        team_key:
-                          type: string
-                        region_key:
-                          type: string
-                        league_key:
-                          type: string
-                        team_number:
-                          type: number
-                        team_name_short:
-                          type: string
-                        team_name_long:
-                          type: string
-                        robot_name:
-                          type: string
-                        last_active:
-                          type: number
-                        city:
-                          type: string
-                        state_prov:
-                          type: string
-                        zip_code:
-                          type: number
-                        country:
-                          type: string
-                        rookie_year:
-                          type: number
-                        website:
-                          type: string
-                    event:
-                      type: object
-                      properties:
-                        event_key:
-                          type: string
-                        season_key:
-                          type: string
-                        region_key:
-                          type: string
-                        league_key:
-                          type: string
-                        event_code:
-                          type: string
-                        event_type_key:
-                          type: string
-                        division_key:
-                          type: number
-                        division_name:
-                          type: string
-                        event_name:
-                          type: string
-                        start_date:
-                          type: string
-                        end_date:
-                          type: string
-                        week_key:
-                          type: string
-                        city:
-                          type: string
-                        state_prov:
-                          type: string
-                        country:
-                          type: string
-                        venue:
-                          type: string
-                        website:
-                          type: string
-                        time_zone:
-                          type: string
-                        is_public:
-                          type: boolean
-                        data_source:
-                          type: number
-                    is_league_team:
-                      type: boolean
-                    league_team_name:
-                      type: string
-  '/team/{teamKey}/matches/{seasonKey}':
-    get:
-      summary: Team matches
-      tags:
-        - Team
-        - Match
-      parameters:
-        - in: path
-          name: teamKey
-          schema:
-            type: number
-            minimum: 1
-          required: true
-        - in: path
-          name: seasonKey
-          schema:
-            type: string
-          required: true
-      responses:
-        '200':
-          description: Returns all matches a team participated in for a given season
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    match_participant_key:
-                      type: string
-                    match_key:
-                      type: string
-                    team_key:
-                      type: string
-                    station:
-                      type: number
-                    station_status:
-                      type: number
-                    ref_status:
-                      type: number
-                    team:
-                      type: object
-                      properties:
-                        team_key:
-                          type: string
-                        region_key:
-                          type: string
-                        league_key:
-                          type: string
-                        team_number:
-                          type: number
-                        team_name_short:
-                          type: string
-                        team_name_long:
-                          type: string
-                        robot_name:
-                          type: string
-                        last_active:
-                          type: number
-                        city:
-                          type: string
-                        state_prov:
-                          type: string
-                        zip_code:
-                          type: number
-                        country:
-                          type: string
-                        rookie_year:
-                          type: number
-                        website:
-                          type: string
-                    is_league_team:
-                      type: boolean
-  '/team/{teamKey}/awards/{seasonKey}':
-    get:
-      summary: Team awards
-      tags:
-        - Team
-      parameters:
-        - in: path
-          name: teamKey
-          schema:
-            type: number
-            minimum: 1
-          required: true
-        - in: path
-          name: seasonKey
-          schema:
-            type: string
-          required: true
-      responses:
-        '200':
-          description: Returns all awardsa team received for a given season
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    awards_key:
-                      type: string
-                    event_key:
-                      type: string
-                    award_key:
-                      type: string
-                    team_key:
-                      type: number
-                    receiver_name:
-                      type: string
-                    award_name:
-                      type: string
-                    award:
-                      type: object
-                      properties:
-                        award_key:
-                          type: string
-                        award_type:
-                          type: string
-                        award_description:
-                          type: string
-                        display_order:
-                          type: number
-                    team:
-                      type: object
-                      properties:
-                        team_key:
-                          type: string
-                        region_key:
-                          type: string
-                        league_key:
-                          type: string
-                        team_number:
-                          type: number
-                        team_name_short:
-                          type: string
-                        team_name_long:
-                          type: string
-                        robot_name:
-                          type: string
-                        last_active:
-                          type: number
-                        city:
-                          type: string
-                        state_prov:
-                          type: string
-                        zip_code:
-                          type: number
-                        country:
-                          type: string
-                        rookie_year:
-                          type: number
-                        website:
-                          type: string
-  '/team/{teamKey}/results/{seasonKey}':
-    get:
-      summary: Team results
-      tags:
-        - Team
-      parameters:
-        - in: path
-          name: teamKey
-          schema:
-            type: number
-            minimum: 1
-          required: true
-        - in: path
-          name: seasonKey
-          schema:
-            type: string
-          required: true
-      responses:
-        '200':
-          description: Returns final rankings for a team in a specific season
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    rank_key:
-                      type: string
-                    event_key:
-                      type: string
-                    team_key:
-                      type: string
-                    rank:
-                      type: number
-                    rank_change:
-                      type: number
-                    opr:
-                      type: number
-                    np_opr:
-                      type: number
-                    wins:
-                      type: number
-                    losses:
-                      type: number
-                    ties:
-                      type: number
-                    highest_qual_score:
-                      type: number
-                    ranking_points:
-                      type: number
-                    qualifying_points:
-                      type: number
-                    tie_breaker_points:
-                      type: number
-                    disqualified:
-                      type: number
-                    played:
-                      type: number
-                    team:
-                      type: object
-                      properties:
-                        team_key:
-                          type: string
-                        region_key:
-                          type: string
-                        league_key:
-                          type: string
-                        team_number:
-                          type: number
-                        team_name_short:
-                          type: string
-                        team_name_long:
-                          type: string
-                        robot_name:
-                          type: string
-                        last_active:
-                          type: number
-                        city:
-                          type: string
-                        state_prov:
-                          type: string
-                        zip_code:
-                          type: number
-                        country:
-                          type: string
-                        rookie_year:
-                          type: number
-                        website:
-                          type: string
-  '/team/{teamKey}/media/{seasonKey}':
-    get:
-      summary: Team media
-      tags:
-        - Team
-      parameters:
-        - in: path
-          name: teamKey
-          schema:
-            type: number
-            minimum: 1
-          required: true
-        - in: path
-          name: seasonKey
-          schema:
-            type: string
-          required: true
-      responses:
-        '200':
-          description: Returns all media uploaded for a team in a given season
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    media_key:
-                      type: string
-                    event_key:
-                      type: string
-                    team_key:
-                      type: string
-                    media_type:
-                      type: number
-                    is_primary:
-                      type: boolean
-                    media_title:
-                      type: string
-                    link:
-                      type: string
-  '/team/history/{seasonKey}':
-    get:
-      summary: Historical teams
-      tags:
-        - Team
-      parameters:
-        - in: path
-          name: seasonKey
-          schema:
-            type: string
-          required: true
-        - in: query
-          name: league_key
-          schema:
-            type: string
-          required: false
-        - in: query
-          name: region_key
-          schema:
-            type: string
-          required: false
-        - in: query
-          name: last_active
-          schema:
-            type: string
-          required: false
-        - in: query
-          name: country
-          schema:
-            type: string
-          required: false
-        - in: query
-          name: start
-          schema:
-            type: number
-          required: false
-        - in: query
-          name: count
-          schema:
-            type: number
-            minimum: 0
-            maximum: 500
-            default: 500
-          required: false
-      responses:
-        '200':
-          description: 'Returns all teams, as they were in TIMS at the end of the requested season'
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    team_key:
-                      type: string
-                    region_key:
-                      type: string
-                    league_key:
-                      type: string
-                    team_number:
-                      type: number
-                    team_name_short:
-                      type: string
-                    team_name_long:
-                      type: string
-                    robot_name:
-                      type: string
-                    last_active:
-                      type: number
-                    city:
-                      type: string
-                    state_prov:
-                      type: string
-                    zip_code:
-                      type: number
-                    country:
-                      type: string
-                    rookie_year:
-                      type: number
-                    website:
-                      type: string
-  '/team/history/{seasonKey}/{teamKey}':
-    get:
-      summary: Historical team
-      tags:
-        - Team
-      parameters:
-        - in: path
-          name: seasonKey
-          schema:
-            type: string
-          required: true
-        - in: path
-          name: teamKey
-          schema:
-            type: number
-            minimum: 1
-          required: true
-      responses:
-        '200':
-          description: 'Returns a team, as it was in TIMS at the end of the requested season'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  team_key:
-                    type: string
-                  region_key:
-                    type: string
-                  league_key:
-                    type: string
-                  team_number:
-                    type: number
-                  team_name_short:
-                    type: string
-                  team_name_long:
-                    type: string
-                  robot_name:
-                    type: string
-                  last_active:
-                    type: number
-                  city:
-                    type: string
-                  state_prov:
-                    type: string
-                  zip_code:
-                    type: number
-                  country:
-                    type: string
-                  rookie_year:
-                    type: number
-                  website:
-                    type: string
-  /web/announcements:
-    get:
-      summary: Live web announcements
-      tags:
-        - Web
-      responses:
-        '200':
-          description: Returns all live web announcements
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    announcement_key:
-                      type: string
-                    title:
-                      type: number
-                    publish_date:
-                      type: number
-                    is_active:
-                      type: boolean
-                    text:
-                      type: string
-                    author:
-                      type: string
-  '/league/{leagueKey}':
-    get:
-      summary: League info
-      tags:
-        - League
-      parameters:
-        - in: path
-          name: leagueKey
-          schema:
-            type: string
-          required: true
-      responses:
-        '200':
-          description: Returns information on the given league
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  league_key:
-                    type: string
-                  region_key:
-                    type: string
-                  season_key:
-                    type: string
-                  league_division:
-                    type: string
-                  league_description:
-                    type: string
-  /league/divisions:
-    get:
-      summary: League divisions
-      tags:
-        - League
-      parameters:
-        - in: query
-          name: league_key
-          schema:
-            type: string
-          required: false
-        - in: query
-          name: region_key
-          schema:
-            type: string
-          required: false
-        - in: query
-          name: season_key
-          schema:
-            type: string
-          required: false
-      responses:
-        '200':
-          description: Returns all league divisions
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    division_key:
-                      type: string
-                    league_key:
-                      type: string
-                    region_key:
-                      type: string
-                    season_key:
-                      type: string
-                    division_description:
-                      type: string
 components:
   responses:
     unfinished:
       description: Unfinished.
   schemas:
     EventParticipant:
-      type: object
-      properties:
-        event_participant_key:
-          type: string
-        event_key:
-          type: string
-        team_key:
-          type: string
-        is_active:
-          type: boolean
-        card_status:
-          type: string
-        team:
-          type: object
-          properties:
-            team_key:
-              type: string
-            region_key:
-              type: string
-            league_key:
-              type: string
-            team_number:
-              type: number
-            team_name_short:
-              type: string
-            team_name_long:
-              type: string
-            robot_name:
-              type: string
-            last_active:
-              type: number
-            city:
-              type: string
-            state_prov:
-              type: string
-            zip_code:
-              type: number
-            country:
-              type: string
-            rookie_year:
-              type: number
-            website:
-              type: string
-        event:
-          type: object
-          properties:
-            event_key:
-              type: string
-            season_key:
-              type: string
-            region_key:
-              type: string
-            league_key:
-              type: string
-            event_code:
-              type: string
-            event_type_key:
-              type: string
-            division_key:
-              type: number
-            division_name:
-              type: string
-            event_name:
-              type: string
-            start_date:
-              type: string
-            end_date:
-              type: string
-            week_key:
-              type: string
-            city:
-              type: string
-            state_prov:
-              type: string
-            country:
-              type: string
-            venue:
-              type: string
-            website:
-              type: string
-            time_zone:
-              type: string
-            is_public:
-              type: boolean
-            data_source:
-              type: number
-        is_league_team:
-          type: boolean
-        league_team_name:
-          type: string
+      $ref: '#/paths/~1event~1%7BeventKey%7D~1teams/get/responses/200/content/application~1json/schema/items'
     League:
-      type: object
-      properties:
-        league_key:
-          type: string
-        region_key:
-          type: string
-        season_key:
-          type: string
-        league_division:
-          type: string
-        league_description:
-          type: string
+      $ref: '#/paths/~1league~1%7BleagueKey%7D/get/responses/200/content/application~1json/schema'
     Media:
-      type: object
-      properties:
-        media_key:
-          type: string
-        event_key:
-          type: string
-        team_key:
-          type: string
-        media_type:
-          type: number
-        is_primary:
-          type: boolean
-        media_title:
-          type: string
-        link:
-          type: string
+      $ref: '#/paths/~1event~1%7BeventKey%7D~1media/get/responses/200/content/application~1json/schema/items'
     EventInsights:
-      type: object
-      properties:
-        high_score_match:
-          type: object
-          properties:
-            match_key:
-              type: string
-            event_key:
-              type: string
-            tournament_level:
-              type: number
-            scheduled_time:
-              type: string
-            match_name:
-              type: string
-            play_number:
-              type: number
-            field_number:
-              type: number
-            prestart_time:
-              type: string
-            match_start_time:
-              type: string
-            prestart_count:
-              type: number
-            cycle_time:
-              type: string
-            red_score:
-              type: number
-            blue_score:
-              type: number
-            red_penalty:
-              type: number
-            blue_penalty:
-              type: number
-            red_auto_score:
-              type: number
-            blue_auto_score:
-              type: number
-            red_tele_score:
-              type: number
-            blue_tele_score:
-              type: number
-            red_end_score:
-              type: number
-            blue_end_score:
-              type: number
-            video_url:
-              type: number
-            participants:
-              type: array
-              items:
-                type: object
-                properties:
-                  event_participant_key:
-                    type: string
-                  event_key:
-                    type: string
-                  team_key:
-                    type: string
-                  is_active:
-                    type: boolean
-                  card_status:
-                    type: string
-                  team:
-                    type: object
-                    properties:
-                      team_key:
-                        type: string
-                      region_key:
-                        type: string
-                      league_key:
-                        type: string
-                      team_number:
-                        type: number
-                      team_name_short:
-                        type: string
-                      team_name_long:
-                        type: string
-                      robot_name:
-                        type: string
-                      last_active:
-                        type: number
-                      city:
-                        type: string
-                      state_prov:
-                        type: string
-                      zip_code:
-                        type: number
-                      country:
-                        type: string
-                      rookie_year:
-                        type: number
-                      website:
-                        type: string
-                  event:
-                    type: object
-                    properties:
-                      event_key:
-                        type: string
-                      season_key:
-                        type: string
-                      region_key:
-                        type: string
-                      league_key:
-                        type: string
-                      event_code:
-                        type: string
-                      event_type_key:
-                        type: string
-                      division_key:
-                        type: number
-                      division_name:
-                        type: string
-                      event_name:
-                        type: string
-                      start_date:
-                        type: string
-                      end_date:
-                        type: string
-                      week_key:
-                        type: string
-                      city:
-                        type: string
-                      state_prov:
-                        type: string
-                      country:
-                        type: string
-                      venue:
-                        type: string
-                      website:
-                        type: string
-                      time_zone:
-                        type: string
-                      is_public:
-                        type: boolean
-                      data_source:
-                        type: number
-                  is_league_team:
-                    type: boolean
-                  league_team_name:
-                    type: string
-        average_match_score:
-          type: number
-        average_winning_score:
-          type: number
-        average_winning_margin:
-          type: number
-        game:
-          oneOf:
-            - type: object
-              properties:
-                auto_percent_landing:
-                  type: number
-                auto_percent_sampling:
-                  type: number
-                auto_percent_claiming:
-                  type: number
-                auto_percent_parking:
-                  type: number
-                tele_avg_golds:
-                  type: number
-                tele_avg_silvers:
-                  type: number
-                tele_avg_depot_minerals:
-                  type: number
-                end_percent_latched:
-                  type: number
-                end_percent_parked:
-                  type: number
-            - type: object
-              properties:
-                auto_average_glyphs:
-                  type: number
-                tele_average_glyphs:
-                  type: number
-                tele_average_ciphers:
-                  type: number
-                end_average_relic1:
-                  type: number
-                end_average_relic2:
-                  type: number
-                end_average_relic3:
-                  type: number
-                end_percent_relics_standing:
-                  type: number
-                end_average_balanced:
-                  type: number
-            - type: object
-              properties:
-                auto_average_skystones_delivered:
-                  type: number
-                auto_average_stones_delivered:
-                  type: number
-                auto_average_placed:
-                  type: number
-                auto_percent_parked:
-                  type: number
-                percent_foundation_moved:
-                  type: number
-                percent_foundation_repositioned:
-                  type: number
-                tele_average_placed:
-                  type: number
-                tele_average_returned:
-                  type: number
-                tele_average_delivered:
-                  type: number
-                end_average_cap_level:
-                  type: number
-                end_average_tower_bonus:
-                  type: number
-                end_average_cap_bonus:
-                  type: number
-                end_average_level_bonus:
-                  type: number
-                end_percent_parked:
-                  type: number
-                auto_percent_naved:
-                  type: number
-            - type: object
-              properties:
-                auto_average_rings_scored_high:
-                  type: number
-                auto_average_rings_scored_mid:
-                  type: number
-                auto_average_rings_scored_low:
-                  type: number
-                auto_average_power_shots:
-                  type: number
-                auto_percent_wobbles_delivered:
-                  type: number
-                auto_percent_navigated:
-                  type: number
-                tele_average_rings_scored_high:
-                  type: number
-                tele_average_rings_scored_mid:
-                  type: number
-                tele_average_rings_scored_low:
-                  type: number
-                end_average_rings_on_wobble:
-                  type: number
-                end_percent_wobbles_on_start:
-                  type: number
-                end_percent_wobbles_in_drop_zone:
-                  type: number
-                end_average_power_shots:
-                  type: number
-            - type: object
-              properties:
-                auto_percent_partially_in_storage:
-                  type: number
-                auto_percent_complete_in_storage:
-                  type: number
-                auto_percent_partially_in_warehouse:
-                  type: number
-                auto_percent_completely_in_warehouse:
-                  type: number
-                auto_percent_bonuses_earned:
-                  type: number
-                auto_average_storage_freight:
-                  type: number
-                auto_average_freight_1:
-                  type: number
-                auto_average_freight_2:
-                  type: number
-                auto_average_freight_3:
-                  type: number
-                tele_average_freight_1:
-                  type: number
-                tele_average_freight_2:
-                  type: number
-                tele_average_freight_3:
-                  type: number
-                tele_average_shared_freight:
-                  type: number
-                end_average_delivered:
-                  type: number
-                end_percent_hub_balanced:
-                  type: number
-                end_percent_shared_hub_unbalanced:
-                  type: number
-                end_percent_partially_in_warehouse:
-                  type: number
-                end_percent_completely_in_warehouse:
-                  type: number
-                percent_capped:
-                  type: number
-                percent_carousel:
-                  type: number
+      $ref: '#/paths/~1event~1%7BeventKey%7D~1insights/get/responses/200/content/application~1json/schema/items'
     EventType:
-      type: object
-      properties:
-        event_type_key:
-          type: string
-        description:
-          type: string
+      $ref: '#/paths/~1event-types/get/responses/200/content/application~1json/schema/items'
     Season:
-      type: object
-      properties:
-        season_key:
-          type: string
-        description:
-          type: string
-        is_active:
-          type: string
+      $ref: '#/paths/~1seasons/get/responses/200/content/application~1json/schema/items'
     Event:
-      type: object
-      properties:
-        event_key:
-          type: string
-        season_key:
-          type: string
-        region_key:
-          type: string
-        league_key:
-          type: string
-        event_code:
-          type: string
-        event_type_key:
-          type: string
-        division_key:
-          type: number
-        division_name:
-          type: string
-        event_name:
-          type: string
-        start_date:
-          type: string
-        end_date:
-          type: string
-        week_key:
-          type: string
-        city:
-          type: string
-        state_prov:
-          type: string
-        country:
-          type: string
-        venue:
-          type: string
-        website:
-          type: string
-        time_zone:
-          type: string
-        is_public:
-          type: boolean
-        data_source:
-          type: number
+      $ref: '#/paths/~1event~1%7BeventKey%7D/get/responses/200/content/application~1json/schema'
     Alliance:
-      type: object
-      properties:
-        seed:
-          type: number
-        captain:
-          type: object
-          properties:
-            team_key:
-              type: string
-            region_key:
-              type: string
-            league_key:
-              type: string
-            team_number:
-              type: number
-            team_name_short:
-              type: string
-            team_name_long:
-              type: string
-            robot_name:
-              type: string
-            last_active:
-              type: number
-            city:
-              type: string
-            state_prov:
-              type: string
-            zip_code:
-              type: number
-            country:
-              type: string
-            rookie_year:
-              type: number
-            website:
-              type: string
-        pick1:
-          type: object
-          properties:
-            team_key:
-              type: string
-            region_key:
-              type: string
-            league_key:
-              type: string
-            team_number:
-              type: number
-            team_name_short:
-              type: string
-            team_name_long:
-              type: string
-            robot_name:
-              type: string
-            last_active:
-              type: number
-            city:
-              type: string
-            state_prov:
-              type: string
-            zip_code:
-              type: number
-            country:
-              type: string
-            rookie_year:
-              type: number
-            website:
-              type: string
-        pick2:
-          type: object
-          properties:
-            team_key:
-              type: string
-            region_key:
-              type: string
-            league_key:
-              type: string
-            team_number:
-              type: number
-            team_name_short:
-              type: string
-            team_name_long:
-              type: string
-            robot_name:
-              type: string
-            last_active:
-              type: number
-            city:
-              type: string
-            state_prov:
-              type: string
-            zip_code:
-              type: number
-            country:
-              type: string
-            rookie_year:
-              type: number
-            website:
-              type: string
-          nullable: true
+      $ref: '#/paths/~1event~1%7BeventKey%7D~1alliances/get/responses/200/content/application~1json/schema/items'
     TeamSeasonRecord:
-      type: object
-      properties:
-        wins:
-          type: number
-        losses:
-          type: number
-        ties:
-          type: number
+      $ref: '#/paths/~1team~1%7BteamKey%7D~1wlt/get/responses/200/content/application~1json/schema'
     AwardRecipient:
-      type: object
-      properties:
-        awards_key:
-          type: string
-        event_key:
-          type: string
-        award_key:
-          type: string
-        team_key:
-          type: number
-        receiver_name:
-          type: string
-        award_name:
-          type: string
-        award:
-          type: object
-          properties:
-            award_key:
-              type: string
-            award_type:
-              type: string
-            award_description:
-              type: string
-            display_order:
-              type: number
-        team:
-          type: object
-          properties:
-            team_key:
-              type: string
-            region_key:
-              type: string
-            league_key:
-              type: string
-            team_number:
-              type: number
-            team_name_short:
-              type: string
-            team_name_long:
-              type: string
-            robot_name:
-              type: string
-            last_active:
-              type: number
-            city:
-              type: string
-            state_prov:
-              type: string
-            zip_code:
-              type: number
-            country:
-              type: string
-            rookie_year:
-              type: number
-            website:
-              type: string
+      $ref: '#/paths/~1event~1%7BeventKey%7D~1awards/get/responses/200/content/application~1json/schema/items'
     MatchDetails:
-      type: object
-      properties:
-        match_detail_key:
-          type: string
-        match_key:
-          type: string
-        red_min_pen:
-          type: number
-        blue_min_pen:
-          type: number
-        red_maj_pen:
-          type: number
-        blue_maj_pen:
-          type: number
+      $ref: '#/paths/~1match~1%7BmatchKey%7D~1details/get/responses/200/content/application~1json/schema'
     WebAnnouncement:
-      type: object
-      properties:
-        announcement_key:
-          type: string
-        title:
-          type: number
-        publish_date:
-          type: number
-        is_active:
-          type: boolean
-        text:
-          type: string
-        author:
-          type: string
+      $ref: '#/paths/~1web~1announcements/get/responses/200/content/application~1json/schema/items'
     MatchParticipant:
-      type: object
-      properties:
-        match_participant_key:
-          type: string
-        match_key:
-          type: string
-        team_key:
-          type: string
-        station:
-          type: number
-        station_status:
-          type: number
-        ref_status:
-          type: number
-        team:
-          type: object
-          properties:
-            team_key:
-              type: string
-            region_key:
-              type: string
-            league_key:
-              type: string
-            team_number:
-              type: number
-            team_name_short:
-              type: string
-            team_name_long:
-              type: string
-            robot_name:
-              type: string
-            last_active:
-              type: number
-            city:
-              type: string
-            state_prov:
-              type: string
-            zip_code:
-              type: number
-            country:
-              type: string
-            rookie_year:
-              type: number
-            website:
-              type: string
-        is_league_team:
-          type: boolean
+      $ref: '#/paths/~1match~1%7BmatchKey%7D~1participants/get/responses/200/content/application~1json/schema/items'
     Region:
-      type: object
-      properties:
-        region_key:
-          type: string
-        description:
-          type: string
+      $ref: '#/paths/~1regions/get/responses/200/content/application~1json/schema/items'
     EventLiveStream:
-      type: object
-      properties:
-        stream_key:
-          type: string
-        event_key:
-          type: string
-        channel_name:
-          type: string
-        stream_name:
-          type: string
-        stream_type:
-          type: number
-        is_active:
-          type: boolean
-        url:
-          type: string
-        start_datetime:
-          type: string
-        end_datetime:
-          type: string
-        channel_url:
-          type: number
+      $ref: '#/paths/~1streams/get/responses/200/content/application~1json/schema/items'
     Award:
       type: object
       properties:
@@ -3658,255 +52,13 @@ components:
         display_order:
           type: number
     LeagueDiv:
-      type: object
-      properties:
-        division_key:
-          type: string
-        league_key:
-          type: string
-        region_key:
-          type: string
-        season_key:
-          type: string
-        division_description:
-          type: string
+      $ref: '#/paths/~1league~1divisions/get/responses/200/content/application~1json/schema/items'
     Team:
-      type: object
-      properties:
-        team_key:
-          type: string
-        region_key:
-          type: string
-        league_key:
-          type: string
-        team_number:
-          type: number
-        team_name_short:
-          type: string
-        team_name_long:
-          type: string
-        robot_name:
-          type: string
-        last_active:
-          type: number
-        city:
-          type: string
-        state_prov:
-          type: string
-        zip_code:
-          type: number
-        country:
-          type: string
-        rookie_year:
-          type: number
-        website:
-          type: string
+      $ref: '#/paths/~1team~1%7BteamKey%7D/get/responses/200/content/application~1json/schema'
     Ranking:
-      type: object
-      properties:
-        rank_key:
-          type: string
-        event_key:
-          type: string
-        team_key:
-          type: string
-        rank:
-          type: number
-        rank_change:
-          type: number
-        opr:
-          type: number
-        np_opr:
-          type: number
-        wins:
-          type: number
-        losses:
-          type: number
-        ties:
-          type: number
-        highest_qual_score:
-          type: number
-        ranking_points:
-          type: number
-        qualifying_points:
-          type: number
-        tie_breaker_points:
-          type: number
-        disqualified:
-          type: number
-        played:
-          type: number
-        team:
-          type: object
-          properties:
-            team_key:
-              type: string
-            region_key:
-              type: string
-            league_key:
-              type: string
-            team_number:
-              type: number
-            team_name_short:
-              type: string
-            team_name_long:
-              type: string
-            robot_name:
-              type: string
-            last_active:
-              type: number
-            city:
-              type: string
-            state_prov:
-              type: string
-            zip_code:
-              type: number
-            country:
-              type: string
-            rookie_year:
-              type: number
-            website:
-              type: string
+      $ref: '#/paths/~1event~1%7BeventKey%7D~1rankings/get/responses/200/content/application~1json/schema/items'
     Match:
-      type: object
-      properties:
-        match_key:
-          type: string
-        event_key:
-          type: string
-        tournament_level:
-          type: number
-        scheduled_time:
-          type: string
-        match_name:
-          type: string
-        play_number:
-          type: number
-        field_number:
-          type: number
-        prestart_time:
-          type: string
-        match_start_time:
-          type: string
-        prestart_count:
-          type: number
-        cycle_time:
-          type: string
-        red_score:
-          type: number
-        blue_score:
-          type: number
-        red_penalty:
-          type: number
-        blue_penalty:
-          type: number
-        red_auto_score:
-          type: number
-        blue_auto_score:
-          type: number
-        red_tele_score:
-          type: number
-        blue_tele_score:
-          type: number
-        red_end_score:
-          type: number
-        blue_end_score:
-          type: number
-        video_url:
-          type: number
-        participants:
-          type: array
-          items:
-            type: object
-            properties:
-              event_participant_key:
-                type: string
-              event_key:
-                type: string
-              team_key:
-                type: string
-              is_active:
-                type: boolean
-              card_status:
-                type: string
-              team:
-                type: object
-                properties:
-                  team_key:
-                    type: string
-                  region_key:
-                    type: string
-                  league_key:
-                    type: string
-                  team_number:
-                    type: number
-                  team_name_short:
-                    type: string
-                  team_name_long:
-                    type: string
-                  robot_name:
-                    type: string
-                  last_active:
-                    type: number
-                  city:
-                    type: string
-                  state_prov:
-                    type: string
-                  zip_code:
-                    type: number
-                  country:
-                    type: string
-                  rookie_year:
-                    type: number
-                  website:
-                    type: string
-              event:
-                type: object
-                properties:
-                  event_key:
-                    type: string
-                  season_key:
-                    type: string
-                  region_key:
-                    type: string
-                  league_key:
-                    type: string
-                  event_code:
-                    type: string
-                  event_type_key:
-                    type: string
-                  division_key:
-                    type: number
-                  division_name:
-                    type: string
-                  event_name:
-                    type: string
-                  start_date:
-                    type: string
-                  end_date:
-                    type: string
-                  week_key:
-                    type: string
-                  city:
-                    type: string
-                  state_prov:
-                    type: string
-                  country:
-                    type: string
-                  venue:
-                    type: string
-                  website:
-                    type: string
-                  time_zone:
-                    type: string
-                  is_public:
-                    type: boolean
-                  data_source:
-                    type: number
-              is_league_team:
-                type: boolean
-              league_team_name:
-                type: string
+      $ref: '#/paths/~1match~1high-scores/get/responses/200/content/application~1json/schema'
     FreightFrenzyBarcodeElement:
       type: string
       enum:
@@ -3916,33 +68,15 @@ components:
       type: object
       properties:
         barcode_element_1:
-          type: string
-          enum:
-            - DUCK
-            - TEAM_SHIPPING_ELEMENT
+          $ref: '#/components/schemas/FreightFrenzyBarcodeElement'
         barcode_element_2:
-          type: string
-          enum:
-            - DUCK
-            - TEAM_SHIPPING_ELEMENT
+          $ref: '#/components/schemas/FreightFrenzyBarcodeElement'
         carousel:
           type: boolean
         auto_navigated_1:
-          type: string
-          enum:
-            - NONE
-            - IN_WAREHOUSE
-            - COMPLETELY_IN_WAREHOUSE
-            - IN_STORAGE
-            - COMPLETELY_IN_STORAGE
+          $ref: '#/components/schemas/FreightFrenzyParking'
         auto_navigated_2:
-          type: string
-          enum:
-            - NONE
-            - IN_WAREHOUSE
-            - COMPLETELY_IN_WAREHOUSE
-            - IN_STORAGE
-            - COMPLETELY_IN_STORAGE
+          $ref: '#/components/schemas/FreightFrenzyParking'
         auto_nav_points:
           type: number
         auto_bonus_1:
@@ -3990,21 +124,9 @@ components:
         shared_unbalanced_points:
           type: number
         end_parked_1:
-          type: string
-          enum:
-            - NONE
-            - IN_WAREHOUSE
-            - COMPLETELY_IN_WAREHOUSE
-            - IN_STORAGE
-            - COMPLETELY_IN_STORAGE
+          $ref: '#/components/schemas/FreightFrenzyParking'
         end_parked_2:
-          type: string
-          enum:
-            - NONE
-            - IN_WAREHOUSE
-            - COMPLETELY_IN_WAREHOUSE
-            - IN_STORAGE
-            - COMPLETELY_IN_STORAGE
+          $ref: '#/components/schemas/FreightFrenzyParking'
         end_parked_points:
           type: number
         capped:
@@ -4039,211 +161,9 @@ components:
         blue_maj_pen:
           type: number
         red:
-          type: object
-          properties:
-            barcode_element_1:
-              type: string
-              enum:
-                - DUCK
-                - TEAM_SHIPPING_ELEMENT
-            barcode_element_2:
-              type: string
-              enum:
-                - DUCK
-                - TEAM_SHIPPING_ELEMENT
-            carousel:
-              type: boolean
-            auto_navigated_1:
-              type: string
-              enum:
-                - NONE
-                - IN_WAREHOUSE
-                - COMPLETELY_IN_WAREHOUSE
-                - IN_STORAGE
-                - COMPLETELY_IN_STORAGE
-            auto_navigated_2:
-              type: string
-              enum:
-                - NONE
-                - IN_WAREHOUSE
-                - COMPLETELY_IN_WAREHOUSE
-                - IN_STORAGE
-                - COMPLETELY_IN_STORAGE
-            auto_nav_points:
-              type: number
-            auto_bonus_1:
-              type: boolean
-            auto_bonus_2:
-              type: boolean
-            auto_bonus_points:
-              type: number
-            auto_storage_freight:
-              type: number
-            auto_freight_1:
-              type: number
-            auto_freight_2:
-              type: number
-            auto_freight_3:
-              type: number
-            auto_freight_points:
-              type: number
-            tele_storage_freight:
-              type: number
-            tele_freight_1:
-              type: number
-            tele_freight_2:
-              type: number
-            tele_freight_3:
-              type: number
-            tele_alliance_hub_points:
-              type: number
-            tele_shared_hub_points:
-              type: number
-            tele_storage_points:
-              type: number
-            shared_freight:
-              type: number
-            end_delivered:
-              type: number
-            end_delivered_points:
-              type: number
-            alliance_balanced:
-              type: boolean
-            alliance_balanced_points:
-              type: number
-            shared_unbalanced:
-              type: boolean
-            shared_unbalanced_points:
-              type: number
-            end_parked_1:
-              type: string
-              enum:
-                - NONE
-                - IN_WAREHOUSE
-                - COMPLETELY_IN_WAREHOUSE
-                - IN_STORAGE
-                - COMPLETELY_IN_STORAGE
-            end_parked_2:
-              type: string
-              enum:
-                - NONE
-                - IN_WAREHOUSE
-                - COMPLETELY_IN_WAREHOUSE
-                - IN_STORAGE
-                - COMPLETELY_IN_STORAGE
-            end_parked_points:
-              type: number
-            capped:
-              type: number
-            capped_points:
-              type: number
-            carousel_points:
-              type: number
-            total_points:
-              type: number
+          $ref: '#/components/schemas/FreightFrenzyAllianceDetails'
         blue:
-          type: object
-          properties:
-            barcode_element_1:
-              type: string
-              enum:
-                - DUCK
-                - TEAM_SHIPPING_ELEMENT
-            barcode_element_2:
-              type: string
-              enum:
-                - DUCK
-                - TEAM_SHIPPING_ELEMENT
-            carousel:
-              type: boolean
-            auto_navigated_1:
-              type: string
-              enum:
-                - NONE
-                - IN_WAREHOUSE
-                - COMPLETELY_IN_WAREHOUSE
-                - IN_STORAGE
-                - COMPLETELY_IN_STORAGE
-            auto_navigated_2:
-              type: string
-              enum:
-                - NONE
-                - IN_WAREHOUSE
-                - COMPLETELY_IN_WAREHOUSE
-                - IN_STORAGE
-                - COMPLETELY_IN_STORAGE
-            auto_nav_points:
-              type: number
-            auto_bonus_1:
-              type: boolean
-            auto_bonus_2:
-              type: boolean
-            auto_bonus_points:
-              type: number
-            auto_storage_freight:
-              type: number
-            auto_freight_1:
-              type: number
-            auto_freight_2:
-              type: number
-            auto_freight_3:
-              type: number
-            auto_freight_points:
-              type: number
-            tele_storage_freight:
-              type: number
-            tele_freight_1:
-              type: number
-            tele_freight_2:
-              type: number
-            tele_freight_3:
-              type: number
-            tele_alliance_hub_points:
-              type: number
-            tele_shared_hub_points:
-              type: number
-            tele_storage_points:
-              type: number
-            shared_freight:
-              type: number
-            end_delivered:
-              type: number
-            end_delivered_points:
-              type: number
-            alliance_balanced:
-              type: boolean
-            alliance_balanced_points:
-              type: number
-            shared_unbalanced:
-              type: boolean
-            shared_unbalanced_points:
-              type: number
-            end_parked_1:
-              type: string
-              enum:
-                - NONE
-                - IN_WAREHOUSE
-                - COMPLETELY_IN_WAREHOUSE
-                - IN_STORAGE
-                - COMPLETELY_IN_STORAGE
-            end_parked_2:
-              type: string
-              enum:
-                - NONE
-                - IN_WAREHOUSE
-                - COMPLETELY_IN_WAREHOUSE
-                - IN_STORAGE
-                - COMPLETELY_IN_STORAGE
-            end_parked_points:
-              type: number
-            capped:
-              type: number
-            capped_points:
-              type: number
-            carousel_points:
-              type: number
-            total_points:
-              type: number
+          $ref: '#/components/schemas/FreightFrenzyAllianceDetails'
     VelocityVortexMatchDetails:
       type: object
       properties:
@@ -4437,139 +357,9 @@ components:
         blue_maj_pen:
           type: number
         red:
-          type: object
-          properties:
-            auto_stone_1:
-              type: number
-            auto_stone_2:
-              type: number
-            auto_stone_3:
-              type: number
-            auto_stone_4:
-              type: number
-            auto_stone_5:
-              type: number
-            auto_stone_6:
-              type: number
-            auto_delivered_skystones:
-              type: number
-            first_returned_is_skystone:
-              type: boolean
-            auto_placed:
-              type: number
-            foundation_repositioned:
-              type: boolean
-            tele_delivered:
-              type: number
-            tele_returned:
-              type: number
-            robot_1:
-              type: object
-              properties:
-                nav:
-                  type: boolean
-                parked:
-                  type: boolean
-                cap_level:
-                  type: number
-            robot_2:
-              type: object
-              properties:
-                nav:
-                  type: boolean
-                parked:
-                  type: boolean
-                cap_level:
-                  type: number
-            foundation_moved:
-              type: boolean
-            auto_transport_points:
-              type: number
-            auto_placed_points:
-              type: number
-            reposition_points:
-              type: number
-            nav_points:
-              type: number
-            tele_transport_points:
-              type: number
-            tele_placed_points:
-              type: number
-            tower_bonus:
-              type: number
-            tower_capping_bonus:
-              type: number
-            tower_level_bonus:
-              type: number
-            end_robots_parked:
-              type: number
+          $ref: '#/components/schemas/SkyStoneAllianceDetails'
         blue:
-          type: object
-          properties:
-            auto_stone_1:
-              type: number
-            auto_stone_2:
-              type: number
-            auto_stone_3:
-              type: number
-            auto_stone_4:
-              type: number
-            auto_stone_5:
-              type: number
-            auto_stone_6:
-              type: number
-            auto_delivered_skystones:
-              type: number
-            first_returned_is_skystone:
-              type: boolean
-            auto_placed:
-              type: number
-            foundation_repositioned:
-              type: boolean
-            tele_delivered:
-              type: number
-            tele_returned:
-              type: number
-            robot_1:
-              type: object
-              properties:
-                nav:
-                  type: boolean
-                parked:
-                  type: boolean
-                cap_level:
-                  type: number
-            robot_2:
-              type: object
-              properties:
-                nav:
-                  type: boolean
-                parked:
-                  type: boolean
-                cap_level:
-                  type: number
-            foundation_moved:
-              type: boolean
-            auto_transport_points:
-              type: number
-            auto_placed_points:
-              type: number
-            reposition_points:
-              type: number
-            nav_points:
-              type: number
-            tele_transport_points:
-              type: number
-            tele_placed_points:
-              type: number
-            tower_bonus:
-              type: number
-            tower_capping_bonus:
-              type: number
-            tower_level_bonus:
-              type: number
-            end_robots_parked:
-              type: number
+          $ref: '#/components/schemas/SkyStoneAllianceDetails'
     SkyStoneRobotParkingStatus:
       type: object
       properties:
@@ -4607,23 +397,9 @@ components:
         tele_returned:
           type: number
         robot_1:
-          type: object
-          properties:
-            nav:
-              type: boolean
-            parked:
-              type: boolean
-            cap_level:
-              type: number
+          $ref: '#/components/schemas/SkyStoneRobotParkingStatus'
         robot_2:
-          type: object
-          properties:
-            nav:
-              type: boolean
-            parked:
-              type: boolean
-            cap_level:
-              type: number
+          $ref: '#/components/schemas/SkyStoneRobotParkingStatus'
         foundation_moved:
           type: boolean
         auto_transport_points:
@@ -4662,119 +438,9 @@ components:
         blue_maj_pen:
           type: number
         red:
-          type: object
-          properties:
-            auto_wobble_delivered_1:
-              type: boolean
-            auto_wobble_delivered_2:
-              type: boolean
-            auto_navigated_1:
-              type: boolean
-            auto_navigated_2:
-              type: boolean
-            auto_nav_pts:
-              type: number
-            auto_tower_low:
-              type: number
-            auto_tower_mid:
-              type: number
-            auto_tower_high:
-              type: number
-            auto_tower_points:
-              type: number
-            auto_power_shot_left:
-              type: boolean
-            auto_power_shot_center:
-              type: boolean
-            auto_power_shot_right:
-              type: boolean
-            auto_power_shot_points:
-              type: number
-            auto_wobble_points:
-              type: number
-            tele_tower_low:
-              type: number
-            tele_tower_mid:
-              type: number
-            tele_tower_high:
-              type: number
-            end_wobble_rings_1:
-              type: number
-            end_wobble_rings_2:
-              type: number
-            end_wobble_1:
-              type: number
-            end_wobble_2:
-              type: number
-            end_wobble_points:
-              type: number
-            end_wobble_ring_points:
-              type: number
-            end_power_shot_left:
-              type: boolean
-            end_power_shot_center:
-              type: boolean
-            end_power_shot_right:
-              type: boolean
-            end_power_shot_points:
-              type: number
+          $ref: '#/components/schemas/UltimateGoalAllianceDetails'
         blue:
-          type: object
-          properties:
-            auto_wobble_delivered_1:
-              type: boolean
-            auto_wobble_delivered_2:
-              type: boolean
-            auto_navigated_1:
-              type: boolean
-            auto_navigated_2:
-              type: boolean
-            auto_nav_pts:
-              type: number
-            auto_tower_low:
-              type: number
-            auto_tower_mid:
-              type: number
-            auto_tower_high:
-              type: number
-            auto_tower_points:
-              type: number
-            auto_power_shot_left:
-              type: boolean
-            auto_power_shot_center:
-              type: boolean
-            auto_power_shot_right:
-              type: boolean
-            auto_power_shot_points:
-              type: number
-            auto_wobble_points:
-              type: number
-            tele_tower_low:
-              type: number
-            tele_tower_mid:
-              type: number
-            tele_tower_high:
-              type: number
-            end_wobble_rings_1:
-              type: number
-            end_wobble_rings_2:
-              type: number
-            end_wobble_1:
-              type: number
-            end_wobble_2:
-              type: number
-            end_wobble_points:
-              type: number
-            end_wobble_ring_points:
-              type: number
-            end_power_shot_left:
-              type: boolean
-            end_power_shot_center:
-              type: boolean
-            end_power_shot_right:
-              type: boolean
-            end_power_shot_points:
-              type: number
+          $ref: '#/components/schemas/UltimateGoalAllianceDetails'
     UltimateGoalAllianceDetails:
       type: object
       properties:
@@ -4989,3 +655,1378 @@ components:
 security:
   - ApiAppID: []
     ApiKeyAuth: []
+paths:
+  /:
+    get:
+      summary: API Version
+      tags:
+        - API
+      responses:
+        '200':
+          description: Gives the version info of the API.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  version:
+                    type: string
+  /docs:
+    get:
+      summary: TODO
+      tags:
+        - API
+      responses:
+        '200':
+          $ref: '#/components/responses/unfinished'
+  /docs/get:
+    get:
+      summary: TODO
+      tags:
+        - API
+      responses:
+        '200':
+          $ref: '#/components/responses/unfinished'
+  /docs/post:
+    get:
+      summary: TODO
+      tags:
+        - API
+      responses:
+        '200':
+          $ref: '#/components/responses/unfinished'
+  /docs/put:
+    get:
+      summary: TODO
+      tags:
+        - API
+      responses:
+        '200':
+          $ref: '#/components/responses/unfinished'
+  /docs/models:
+    get:
+      summary: TODO
+      tags:
+        - API
+      responses:
+        '200':
+          $ref: '#/components/responses/unfinished'
+  /event-types:
+    get:
+      summary: Returns all event types.
+      tags:
+        - API
+        - Event
+      responses:
+        '200':
+          description: Returns all the possible event types
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    event_type_key:
+                      type: string
+                    description:
+                      type: string
+  /seasons:
+    get:
+      summary: Get all FTC seasons
+      tags:
+        - API
+      responses:
+        '200':
+          description: Return all FTC seasons
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    season_key:
+                      type: string
+                    description:
+                      type: string
+                    is_active:
+                      type: string
+  /regions:
+    get:
+      summary: Get all FTC regions
+      tags:
+        - API
+      responses:
+        '200':
+          description: Return all FTC regions
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    region_key:
+                      type: string
+                    description:
+                      type: string
+  /leagues:
+    get:
+      summary: Get all FTC leagues
+      tags:
+        - API
+      responses:
+        '200':
+          description: Return all FTC leagues
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/paths/~1league~1%7BleagueKey%7D/get/responses/200/content/application~1json/schema'
+  /streams:
+    get:
+      summary: Get all active livestreams
+      tags:
+        - API
+        - Event
+      responses:
+        '200':
+          description: Return all active event livestreams
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    stream_key:
+                      type: string
+                    event_key:
+                      type: string
+                    channel_name:
+                      type: string
+                    stream_name:
+                      type: string
+                    stream_type:
+                      type: number
+                    is_active:
+                      type: boolean
+                    url:
+                      type: string
+                    start_datetime:
+                      type: string
+                    end_datetime:
+                      type: string
+                    channel_url:
+                      type: number
+  /event:
+    get:
+      summary: Return all events based on the given query
+      tags:
+        - Event
+      parameters:
+        - in: query
+          name: league_key
+          schema:
+            type: string
+          description: Filter events by league
+        - in: query
+          name: region_key
+          schema:
+            type: string
+          description: Filter events by region
+        - in: query
+          name: season_key
+          schema:
+            type: string
+          description: Filter events by season
+        - in: query
+          name: type
+          schema:
+            type: string
+          description: Filter events by their type
+      responses:
+        '200':
+          description: Return all events using the given query
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/paths/~1event~1%7BeventKey%7D/get/responses/200/content/application~1json/schema'
+  /event/size:
+    get:
+      summary: Event count
+      tags:
+        - Event
+      responses:
+        '200':
+          description: Returns the amount of events in the database
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: integer
+  '/event/{eventKey}':
+    get:
+      summary: Specific event details
+      tags:
+        - Event
+      parameters:
+        - in: path
+          name: eventKey
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Returns event information for a specific event
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  event_key:
+                    type: string
+                  season_key:
+                    type: string
+                  region_key:
+                    type: string
+                  league_key:
+                    type: string
+                  event_code:
+                    type: string
+                  event_type_key:
+                    type: string
+                  division_key:
+                    type: number
+                  division_name:
+                    type: string
+                  event_name:
+                    type: string
+                  start_date:
+                    type: string
+                  end_date:
+                    type: string
+                  week_key:
+                    type: string
+                  city:
+                    type: string
+                  state_prov:
+                    type: string
+                  country:
+                    type: string
+                  venue:
+                    type: string
+                  website:
+                    type: string
+                  time_zone:
+                    type: string
+                  is_public:
+                    type: boolean
+                  data_source:
+                    type: number
+  '/event/{eventKey}/matches':
+    get:
+      summary: Event matches
+      tags:
+        - Event
+        - Match
+      parameters:
+        - in: path
+          name: eventKey
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Returns all matches for a specific event
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/paths/~1match~1high-scores/get/responses/200/content/application~1json/schema'
+  '/event/{eventKey}/matches/details':
+    get:
+      summary: Event match details
+      tags:
+        - Event
+        - Match
+      parameters:
+        - in: path
+          name: eventKey
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Returns all match details for a specific event
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/paths/~1match~1%7BmatchKey%7D~1details/get/responses/200/content/application~1json/schema'
+  '/event/{eventKey}/matches/participants':
+    get:
+      summary: Event match participants
+      tags:
+        - Event
+        - Match
+      parameters:
+        - in: path
+          name: eventKey
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Returns all teams that participated in each match at a specific event
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/paths/~1match~1%7BmatchKey%7D~1participants/get/responses/200/content/application~1json/schema/items'
+  '/event/{eventKey}/rankings':
+    get:
+      summary: Event rankings
+      tags:
+        - Event
+      parameters:
+        - in: path
+          name: eventKey
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Returns team rankings for a specific event
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    rank_key:
+                      type: string
+                    event_key:
+                      type: string
+                    team_key:
+                      type: string
+                    rank:
+                      type: number
+                    rank_change:
+                      type: number
+                    opr:
+                      type: number
+                    np_opr:
+                      type: number
+                    wins:
+                      type: number
+                    losses:
+                      type: number
+                    ties:
+                      type: number
+                    highest_qual_score:
+                      type: number
+                    ranking_points:
+                      type: number
+                    qualifying_points:
+                      type: number
+                    tie_breaker_points:
+                      type: number
+                    disqualified:
+                      type: number
+                    played:
+                      type: number
+                    team:
+                      $ref: '#/paths/~1team~1%7BteamKey%7D/get/responses/200/content/application~1json/schema'
+  '/event/{eventKey}/insights':
+    get:
+      summary: Event insights
+      tags:
+        - Event
+        - Insights
+      parameters:
+        - in: path
+          name: eventKey
+          schema:
+            type: string
+          required: true
+        - in: query
+          name: type
+          description: Specific type of insights. (quals or elims)
+          required: true
+          schema:
+            type: string
+            enum:
+              - quals
+              - elims
+      responses:
+        '200':
+          description: Returns insights for a specific event
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    high_score_match:
+                      $ref: '#/paths/~1match~1high-scores/get/responses/200/content/application~1json/schema'
+                    average_match_score:
+                      type: number
+                    average_winning_score:
+                      type: number
+                    average_winning_margin:
+                      type: number
+                    game:
+                      oneOf:
+                        - $ref: '#/components/schemas/RoverRuckusInsights'
+                        - $ref: '#/components/schemas/RelicRecoveryInsights'
+                        - $ref: '#/components/schemas/SkyStoneInsights'
+                        - $ref: '#/components/schemas/UltimateGoalInsights'
+                        - $ref: '#/components/schemas/FreightFrenzyInsights'
+  '/event/{eventKey}/alliances':
+    get:
+      summary: Event alliances
+      tags:
+        - Event
+      parameters:
+        - in: path
+          name: eventKey
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Returns elimination alliances for a specific event
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    seed:
+                      type: number
+                    captain:
+                      $ref: '#/paths/~1team~1%7BteamKey%7D/get/responses/200/content/application~1json/schema'
+                    pick1:
+                      $ref: '#/paths/~1team~1%7BteamKey%7D/get/responses/200/content/application~1json/schema'
+                    pick2:
+                      $ref: '#/paths/~1team~1%7BteamKey%7D/get/responses/200/content/application~1json/schema'
+                      nullable: true
+  '/event/{eventKey}/streams':
+    get:
+      summary: Event livestreams
+      tags:
+        - Event
+      parameters:
+        - in: path
+          name: eventKey
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Returns all available livestreams for a specific event
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/paths/~1streams/get/responses/200/content/application~1json/schema/items'
+  '/event/{eventKey}/teams':
+    get:
+      summary: Event teams
+      tags:
+        - Event
+      parameters:
+        - in: path
+          name: eventKey
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Returns list of participating teams for a specific event
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    event_participant_key:
+                      type: string
+                    event_key:
+                      type: string
+                    team_key:
+                      type: string
+                    is_active:
+                      type: boolean
+                    card_status:
+                      type: string
+                    team:
+                      $ref: '#/paths/~1team~1%7BteamKey%7D/get/responses/200/content/application~1json/schema'
+                    event:
+                      $ref: '#/paths/~1event~1%7BeventKey%7D/get/responses/200/content/application~1json/schema'
+                    is_league_team:
+                      type: boolean
+                    league_team_name:
+                      type: string
+  '/event/{eventKey}/awards':
+    get:
+      summary: Event awards
+      tags:
+        - Event
+      parameters:
+        - in: path
+          name: eventKey
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Returns all awards for a specific event
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    awards_key:
+                      type: string
+                    event_key:
+                      type: string
+                    award_key:
+                      type: string
+                    team_key:
+                      type: number
+                    receiver_name:
+                      type: string
+                    award_name:
+                      type: string
+                    award:
+                      $ref: '#/components/schemas/Award'
+                    team:
+                      $ref: '#/paths/~1team~1%7BteamKey%7D/get/responses/200/content/application~1json/schema'
+  '/event/{eventKey}/media':
+    get:
+      summary: Event media
+      tags:
+        - Event
+      parameters:
+        - in: path
+          name: eventKey
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Returns all uploaded media for a specific event
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    media_key:
+                      type: string
+                    event_key:
+                      type: string
+                    team_key:
+                      type: string
+                    media_type:
+                      type: number
+                    is_primary:
+                      type: boolean
+                    media_title:
+                      type: string
+                    link:
+                      type: string
+  '/match/all/{seasonKey}':
+    get:
+      summary: Matches from season
+      tags:
+        - Match
+      parameters:
+        - in: path
+          name: seasonKey
+          schema:
+            type: string
+          required: true
+        - in: query
+          name: start
+          description: 'The place in the database to start, used for pagination'
+          required: false
+          schema:
+            type: number
+        - in: query
+          name: count
+          description: 'Number of matches to return (max 500, default 500)'
+          schema:
+            type: number
+            minimum: 0
+            maximum: 500
+            default: 500
+      responses:
+        '200':
+          description: All matches from a specific season.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/paths/~1match~1high-scores/get/responses/200/content/application~1json/schema'
+  /match/size:
+    get:
+      summary: Match count
+      tags:
+        - Match
+      responses:
+        '200':
+          description: Returns the amount of matches in the current season database
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: integer
+  /match/high-scores:
+    get:
+      summary: High scoring matches
+      tags:
+        - Match
+      parameters:
+        - in: query
+          name: type
+          description: Type of match to search by
+          schema:
+            type: string
+            enum:
+              - quals
+              - elims
+              - single_team
+              - all
+          required: false
+        - in: query
+          name: season_key
+          description: Season to query by
+          schema:
+            type: string
+          required: false
+        - in: query
+          name: penalty
+          description: Whether to include matches with penalties
+          schema:
+            type: boolean
+          required: false
+      responses:
+        '200':
+          description: Returns the match with the highest score based on the query.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  match_key:
+                    type: string
+                  event_key:
+                    type: string
+                  tournament_level:
+                    type: number
+                  scheduled_time:
+                    type: string
+                  match_name:
+                    type: string
+                  play_number:
+                    type: number
+                  field_number:
+                    type: number
+                  prestart_time:
+                    type: string
+                  match_start_time:
+                    type: string
+                  prestart_count:
+                    type: number
+                  cycle_time:
+                    type: string
+                  red_score:
+                    type: number
+                  blue_score:
+                    type: number
+                  red_penalty:
+                    type: number
+                  blue_penalty:
+                    type: number
+                  red_auto_score:
+                    type: number
+                  blue_auto_score:
+                    type: number
+                  red_tele_score:
+                    type: number
+                  blue_tele_score:
+                    type: number
+                  red_end_score:
+                    type: number
+                  blue_end_score:
+                    type: number
+                  video_url:
+                    type: number
+                  participants:
+                    type: array
+                    items:
+                      $ref: '#/paths/~1event~1%7BeventKey%7D~1teams/get/responses/200/content/application~1json/schema/items'
+  '/match/{matchKey}':
+    get:
+      summary: Match info
+      tags:
+        - Match
+      parameters:
+        - in: path
+          name: matchKey
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Returns match information about a specific match
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1match~1high-scores/get/responses/200/content/application~1json/schema'
+              examples:
+                freightFrenzy:
+                  FreightFrenzyMatch:
+                    summary: Match from 2021/2022 season (Freight Frenzy)
+                    value:
+                      - match_key: 2122-FIM-MOLM1-Q001-1
+                        event_key: 2122-FIM-MOLM1
+                        tournament_level: 1
+                        scheduled_time: '2021-11-01T18:26:00.000Z'
+                        match_name: Quals 1
+                        play_number: 1
+                        field_number: 1
+                        prestart_time: null
+                        match_start_time: null
+                        prestart_count: null
+                        cycle_time: null
+                        red_score: 77
+                        blue_score: 0
+                        red_penalty: 0
+                        blue_penalty: 2
+                        red_auto_score: 15
+                        blue_auto_score: 36
+                        red_tele_score: 42
+                        blue_tele_score: 0
+                        red_end_score: 20
+                        blue_end_score: 0
+                        video_url: null
+                        participants:
+                          - match_participant_key: 2122-FIM-MOLM1-Q001-1-R1
+                            match_key: 2122-FIM-MOLM1-Q001-1
+                            team_key: '8478'
+                            station: 11
+                            station_status: 1
+                            ref_status: 0
+                            team:
+                              team_key: '8478'
+                              region_key: FIM
+                              league_key: null
+                              team_number: 8478
+                              team_name_short: E-Bots
+                              team_name_long: Hart Middle School PTSA&Hart Middle School
+                              robot_name: null
+                              last_active: '2122'
+                              city: Rochester
+                              state_prov: MI
+                              zip_code: '48307'
+                              country: USA
+                              rookie_year: 2014
+                              website: 'http://www.ebots8478.com'
+                          - match_participant_key: 2122-FIM-MOLM1-Q001-1-R2
+                            match_key: 2122-FIM-MOLM1-Q001-1
+                            team_key: '11717'
+                            station: 12
+                            station_status: 1
+                            ref_status: 0
+                            team:
+                              team_key: '11717'
+                              region_key: FIM
+                              league_key: null
+                              team_number: 11717
+                              team_name_short: Circuit Breakers
+                              team_name_long: REV Robotics/FCA Foundation/Spout Analytics/Michigan Department of Education&Baker Middle School&Boulan Park Middle School
+                              robot_name: null
+                              last_active: '2122'
+                              city: Troy
+                              state_prov: MI
+                              zip_code: '48083'
+                              country: USA
+                              rookie_year: 2016
+                              website: 'https://ftc11717.org'
+                          - match_participant_key: 2122-FIM-MOLM1-Q001-1-B1
+                            match_key: 2122-FIM-MOLM1-Q001-1
+                            team_key: '15004'
+                            station: 21
+                            station_status: 1
+                            ref_status: 0
+                            team:
+                              team_key: '15004'
+                              region_key: FIM
+                              league_key: null
+                              team_number: 15004
+                              team_name_short: Tech KNOW Logic
+                              team_name_long: Baker Middle School
+                              robot_name: null
+                              last_active: '2122'
+                              city: Troy
+                              state_prov: MI
+                              zip_code: '48083'
+                              country: USA
+                              rookie_year: 2018
+                              website: null
+                          - match_participant_key: 2122-FIM-MOLM1-Q001-1-B2
+                            match_key: 2122-FIM-MOLM1-Q001-1
+                            team_key: '17181'
+                            station: 22
+                            station_status: 1
+                            ref_status: 0
+                            team:
+                              team_key: '17181'
+                              region_key: FIM
+                              league_key: null
+                              team_number: 17181
+                              team_name_short: Vibranium Vikings
+                              team_name_long: DURMA/APTIV/ADAMBOTS &Van Hoosen Middle School
+                              robot_name: null
+                              last_active: '2122'
+                              city: Rochester
+                              state_prov: MI
+                              zip_code: '48306'
+                              country: USA
+                              rookie_year: 2019
+                              website: null
+  '/match/{matchKey}/details':
+    get:
+      summary: Match details
+      tags:
+        - Match
+      parameters:
+        - in: path
+          name: matchKey
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Returns match details about a specific match
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  match_detail_key:
+                    type: string
+                  match_key:
+                    type: string
+                  red_min_pen:
+                    type: number
+                  blue_min_pen:
+                    type: number
+                  red_maj_pen:
+                    type: number
+                  blue_maj_pen:
+                    type: number
+  '/match/{matchKey}/participants':
+    get:
+      summary: Match participants
+      tags:
+        - Match
+      parameters:
+        - in: path
+          name: matchKey
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Returns teams participating in the specified match
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    match_participant_key:
+                      type: string
+                    match_key:
+                      type: string
+                    team_key:
+                      type: string
+                    station:
+                      type: number
+                    station_status:
+                      type: number
+                    ref_status:
+                      type: number
+                    team:
+                      $ref: '#/paths/~1team~1%7BteamKey%7D/get/responses/200/content/application~1json/schema'
+                    is_league_team:
+                      type: boolean
+  /team:
+    get:
+      summary: All teams
+      tags:
+        - Team
+      parameters:
+        - in: query
+          name: league_key
+          schema:
+            type: string
+          required: false
+        - in: query
+          name: region_key
+          schema:
+            type: string
+          required: false
+        - in: query
+          name: last_active
+          schema:
+            type: string
+          required: false
+        - in: query
+          name: country
+          schema:
+            type: string
+          required: false
+        - in: query
+          name: start
+          schema:
+            type: number
+          required: false
+        - in: query
+          name: count
+          schema:
+            type: number
+            minimum: 0
+            maximum: 500
+            default: 500
+          required: false
+      responses:
+        '200':
+          description: Returns all teams
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/paths/~1team~1%7BteamKey%7D/get/responses/200/content/application~1json/schema'
+  /team/size:
+    get:
+      summary: Team count
+      tags:
+        - Team
+      responses:
+        '200':
+          description: Returns the amount of teams in the database
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: integer
+  '/team/{teamKey}':
+    get:
+      summary: Team info
+      tags:
+        - Team
+      parameters:
+        - in: path
+          name: teamKey
+          schema:
+            type: number
+            minimum: 1
+          required: true
+      responses:
+        '200':
+          description: Returns basic information on the specific team
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  team_key:
+                    type: string
+                  region_key:
+                    type: string
+                  league_key:
+                    type: string
+                  team_number:
+                    type: number
+                  team_name_short:
+                    type: string
+                  team_name_long:
+                    type: string
+                  robot_name:
+                    type: string
+                  last_active:
+                    type: number
+                  city:
+                    type: string
+                  state_prov:
+                    type: string
+                  zip_code:
+                    type: number
+                  country:
+                    type: string
+                  rookie_year:
+                    type: number
+                  website:
+                    type: string
+  '/team/{teamKey}/wlt':
+    get:
+      summary: Team WLT record
+      tags:
+        - Team
+      parameters:
+        - in: path
+          name: teamKey
+          schema:
+            type: number
+            minimum: 1
+          required: true
+      responses:
+        '200':
+          description: Returns the Win/Loss/Tie record of the specified team (includes elimination matches)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  wins:
+                    type: number
+                  losses:
+                    type: number
+                  ties:
+                    type: number
+  '/team/{teamKey}/events/{seasonKey}':
+    get:
+      summary: Team events
+      tags:
+        - Team
+        - Event
+      parameters:
+        - in: path
+          name: teamKey
+          schema:
+            type: number
+            minimum: 1
+          required: true
+        - in: path
+          name: seasonKey
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Returns all events a team participated in for a given season
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/paths/~1event~1%7BeventKey%7D~1teams/get/responses/200/content/application~1json/schema/items'
+  '/team/{teamKey}/matches/{seasonKey}':
+    get:
+      summary: Team matches
+      tags:
+        - Team
+        - Match
+      parameters:
+        - in: path
+          name: teamKey
+          schema:
+            type: number
+            minimum: 1
+          required: true
+        - in: path
+          name: seasonKey
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Returns all matches a team participated in for a given season
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/paths/~1match~1%7BmatchKey%7D~1participants/get/responses/200/content/application~1json/schema/items'
+  '/team/{teamKey}/awards/{seasonKey}':
+    get:
+      summary: Team awards
+      tags:
+        - Team
+      parameters:
+        - in: path
+          name: teamKey
+          schema:
+            type: number
+            minimum: 1
+          required: true
+        - in: path
+          name: seasonKey
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Returns all awardsa team received for a given season
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/paths/~1event~1%7BeventKey%7D~1awards/get/responses/200/content/application~1json/schema/items'
+  '/team/{teamKey}/results/{seasonKey}':
+    get:
+      summary: Team results
+      tags:
+        - Team
+      parameters:
+        - in: path
+          name: teamKey
+          schema:
+            type: number
+            minimum: 1
+          required: true
+        - in: path
+          name: seasonKey
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Returns final rankings for a team in a specific season
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/paths/~1event~1%7BeventKey%7D~1rankings/get/responses/200/content/application~1json/schema/items'
+  '/team/{teamKey}/media/{seasonKey}':
+    get:
+      summary: Team media
+      tags:
+        - Team
+      parameters:
+        - in: path
+          name: teamKey
+          schema:
+            type: number
+            minimum: 1
+          required: true
+        - in: path
+          name: seasonKey
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Returns all media uploaded for a team in a given season
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/paths/~1event~1%7BeventKey%7D~1media/get/responses/200/content/application~1json/schema/items'
+  '/team/history/{seasonKey}':
+    get:
+      summary: Historical teams
+      tags:
+        - Team
+      parameters:
+        - in: path
+          name: seasonKey
+          schema:
+            type: string
+          required: true
+        - in: query
+          name: league_key
+          schema:
+            type: string
+          required: false
+        - in: query
+          name: region_key
+          schema:
+            type: string
+          required: false
+        - in: query
+          name: last_active
+          schema:
+            type: string
+          required: false
+        - in: query
+          name: country
+          schema:
+            type: string
+          required: false
+        - in: query
+          name: start
+          schema:
+            type: number
+          required: false
+        - in: query
+          name: count
+          schema:
+            type: number
+            minimum: 0
+            maximum: 500
+            default: 500
+          required: false
+      responses:
+        '200':
+          description: 'Returns all teams, as they were in TIMS at the end of the requested season'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/paths/~1team~1%7BteamKey%7D/get/responses/200/content/application~1json/schema'
+  '/team/history/{seasonKey}/{teamKey}':
+    get:
+      summary: Historical team
+      tags:
+        - Team
+      parameters:
+        - in: path
+          name: seasonKey
+          schema:
+            type: string
+          required: true
+        - in: path
+          name: teamKey
+          schema:
+            type: number
+            minimum: 1
+          required: true
+      responses:
+        '200':
+          description: 'Returns a team, as it was in TIMS at the end of the requested season'
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1team~1%7BteamKey%7D/get/responses/200/content/application~1json/schema'
+  /web/announcements:
+    get:
+      summary: Live web announcements
+      tags:
+        - Web
+      responses:
+        '200':
+          description: Returns all live web announcements
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    announcement_key:
+                      type: string
+                    title:
+                      type: number
+                    publish_date:
+                      type: number
+                    is_active:
+                      type: boolean
+                    text:
+                      type: string
+                    author:
+                      type: string
+  '/league/{leagueKey}':
+    get:
+      summary: League info
+      tags:
+        - League
+      parameters:
+        - in: path
+          name: leagueKey
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Returns information on the given league
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  league_key:
+                    type: string
+                  region_key:
+                    type: string
+                  season_key:
+                    type: string
+                  league_division:
+                    type: string
+                  league_description:
+                    type: string
+  /league/divisions:
+    get:
+      summary: League divisions
+      tags:
+        - League
+      parameters:
+        - in: query
+          name: league_key
+          schema:
+            type: string
+          required: false
+        - in: query
+          name: region_key
+          schema:
+            type: string
+          required: false
+        - in: query
+          name: season_key
+          schema:
+            type: string
+          required: false
+      responses:
+        '200':
+          description: Returns all league divisions
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    division_key:
+                      type: string
+                    league_key:
+                      type: string
+                    region_key:
+                      type: string
+                    season_key:
+                      type: string
+                    division_description:
+                      type: string
