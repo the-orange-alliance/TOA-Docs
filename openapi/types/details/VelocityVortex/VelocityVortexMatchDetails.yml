@@ -1,0 +1,54 @@
+type: object
+properties:
+  match_detail_key:
+    type: number
+  match_key:
+    type: number
+  red_min_pen:
+    type: number
+  blue_min_pen:
+    type: number
+  red_maj_pen:
+    type: number
+  blue_maj_pen:
+    type: number
+  red_auto_beacons:
+    type: number
+  red_auto_cap:
+    type: number
+  red_auto_part_cen:
+    type: number
+  red_auto_part_cor:
+    type: number
+  red_auto_robot_1:
+    type: number
+  red_auto_robot_2:
+    type: number
+  red_tele_beacons:
+    type: number
+  red_tele_part_cen:
+    type: number
+  red_tele_part_cor:
+    type: number
+  red_tele_cap:
+    type: number
+  blue_auto_beacons:
+    type: number
+  blue_auto_cap:
+    type: number
+  blue_auto_part_cen:
+    type: number
+  blue_auto_part_cor:
+    type: number
+  blue_auto_robot_1:
+    type: number
+  blue_auto_robot_2:
+    type: number
+  blue_tele_beacons:
+    type: number
+  blue_tele_part_cen:
+    type: number
+  blue_tele_part_cor:
+    type: number
+  blue_tele_cap:
+    type: number

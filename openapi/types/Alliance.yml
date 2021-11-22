@@ -1,0 +1,11 @@
+type: object
+properties:
+  seed:
+    type: number
+  captain:
+    $ref: "./Team.yml"
+  pick1:
+    $ref: "./Team.yml"
+  pick2:
+    $ref: "./Team.yml"
+    nullable: true

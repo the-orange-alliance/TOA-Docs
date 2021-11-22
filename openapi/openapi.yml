@@ -1,0 +1,948 @@
+openapi: 3.0.0
+info:
+  title: The Orange Alliance API
+  version: 1.0.0
+  description: The Goal of TOA API is to provide us, and potential outside users a way to query our databases.
+servers:
+  - url: https://theorangealliance.org/api
+
+paths:
+  /:
+    get:
+      summary: API Version
+      tags:
+        - API
+      responses:
+        200:
+          description: Gives the version info of the API.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  version:
+                    type: string
+  /docs:
+    get:
+      summary: TODO
+      tags:
+        - API
+      responses:
+        200:
+          $ref: "#/components/responses/unfinished"
+  /docs/get:
+    get:
+      summary: TODO
+      tags:
+        - API
+      responses:
+        200:
+          $ref: "#/components/responses/unfinished"
+  /docs/post:
+    get:
+      summary: TODO
+      tags:
+        - API
+      responses:
+        200:
+          $ref: "#/components/responses/unfinished"
+  /docs/put:
+    get:
+      summary: TODO
+      tags:
+        - API
+      responses:
+        200:
+          $ref: "#/components/responses/unfinished"
+  /docs/models:
+    get:
+      summary: TODO
+      tags:
+        - API
+      responses:
+        200:
+          $ref: "#/components/responses/unfinished"
+  /event-types:
+    get:
+      summary: Returns all event types.
+      tags:
+        - API
+        - Event
+      responses:
+        200:
+          description: Returns all the possible event types
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "./types/EventType.yml"
+  /seasons:
+    get:
+      summary: Get all FTC seasons
+      tags:
+        - API
+      responses:
+        200:
+          description: Return all FTC seasons
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "./types/Season.yml"
+  /regions:
+    get:
+      summary: Get all FTC regions
+      tags:
+        - API
+      responses:
+        200:
+          description: Return all FTC regions
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "./types/Region.yml"
+  /leagues:
+    get:
+      summary: Get all FTC leagues
+      tags:
+        - API
+      responses:
+        200:
+          description: Return all FTC leagues
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "./types/League.yml"
+  /streams:
+    get:
+      summary: Get all active livestreams
+      tags:
+        - API
+        - Event
+      responses:
+        200:
+          description: Return all active event livestreams
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "./types/EventLiveStream.yml"
+  /event:
+    get:
+      summary: Return all events based on the given query
+      tags:
+        - Event
+      parameters:
+        - in: query
+          name: league_key
+          schema:
+            type: string
+          description: Filter events by league
+        - in: query
+          name: region_key
+          schema:
+            type: string
+          description: Filter events by region
+        - in: query
+          name: season_key
+          schema:
+            type: string
+          description: Filter events by season
+        - in: query
+          name: type
+          schema:
+            type: string
+          description: Filter events by their type
+      responses:
+        200:
+          description: Return all events using the given query
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "./types/Event.yml"
+  /event/size:
+    get:
+      summary: Event count
+      tags:
+        - Event
+      responses:
+        200:
+          description: Returns the amount of events in the database
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: integer
+  /event/{eventKey}:
+    get:
+      summary: Specific event details
+      tags:
+        - Event
+      parameters:
+        - in: path
+          name: eventKey
+          schema:
+            type: string
+          required: true
+      responses:
+        200:
+          description: Returns event information for a specific event
+          content:
+            application/json:
+              schema:
+                $ref: "./types/Event.yml"
+  /event/{eventKey}/matches:
+    get:
+      summary: Event matches
+      tags:
+        - Event
+        - Match
+      parameters:
+        - in: path
+          name: eventKey
+          schema:
+            type: string
+          required: true
+      responses:
+        200:
+          description: Returns all matches for a specific event
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "./types/Match.yml"
+  /event/{eventKey}/matches/details:
+    get:
+      summary: Event match details
+      tags:
+        - Event
+        - Match
+      parameters:
+        - in: path
+          name: eventKey
+          schema:
+            type: string
+          required: true
+      responses:
+        200:
+          description: Returns all match details for a specific event
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "./types/MatchDetails.yml"
+  /event/{eventKey}/matches/participants:
+    get:
+      summary: Event match participants
+      tags:
+        - Event
+        - Match
+      parameters:
+        - in: path
+          name: eventKey
+          schema:
+            type: string
+          required: true
+      responses:
+        200:
+          description: Returns all teams that participated in each match at a specific event
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "./types/MatchParticipant.yml"
+  /event/{eventKey}/rankings:
+    get:
+      summary: Event rankings
+      tags:
+        - Event
+      parameters:
+        - in: path
+          name: eventKey
+          schema:
+            type: string
+          required: true
+      responses:
+        200:
+          description: Returns team rankings for a specific event
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "./types/Ranking.yml"
+  /event/{eventKey}/insights:
+    get:
+      summary: Event insights
+      tags:
+        - Event
+        - Insights
+      parameters:
+        - in: path
+          name: eventKey
+          schema:
+            type: string
+          required: true
+        - in: query
+          name: type
+          description: Specific type of insights. (quals or elims)
+          required: true
+          schema:
+            type: string
+            enum: [quals, elims]
+      responses:
+        200:
+          description: Returns insights for a specific event
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "./types/EventInsights.yml"
+  /event/{eventKey}/alliances:
+    get:
+      summary: Event alliances
+      tags:
+        - Event
+      parameters:
+        - in: path
+          name: eventKey
+          schema:
+            type: string
+          required: true
+      responses:
+        200:
+          description: Returns elimination alliances for a specific event
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "./types/Alliance.yml"
+  /event/{eventKey}/streams:
+    get:
+      summary: Event livestreams
+      tags:
+        - Event
+      parameters:
+        - in: path
+          name: eventKey
+          schema:
+            type: string
+          required: true
+      responses:
+        200:
+          description: Returns all available livestreams for a specific event
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "./types/EventLiveStream.yml"
+  /event/{eventKey}/teams:
+    get:
+      summary: Event teams
+      tags:
+        - Event
+      parameters:
+        - in: path
+          name: eventKey
+          schema:
+            type: string
+          required: true
+      responses:
+        200:
+          description: Returns list of participating teams for a specific event
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "./types/EventParticipant.yml"
+  /event/{eventKey}/awards:
+    get:
+      summary: Event awards
+      tags:
+        - Event
+      parameters:
+        - in: path
+          name: eventKey
+          schema:
+            type: string
+          required: true
+      responses:
+        200:
+          description: Returns all awards for a specific event
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "./types/AwardRecipient.yml"
+  /event/{eventKey}/media:
+    get:
+      summary: Event media
+      tags:
+        - Event
+      parameters:
+        - in: path
+          name: eventKey
+          schema:
+            type: string
+          required: true
+      responses:
+        200:
+          description: Returns all uploaded media for a specific event
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "./types/Media.yml"
+  /match/all/{seasonKey}:
+    get:
+      summary: Matches from season
+      tags:
+        - Match
+      parameters:
+        - in: path
+          name: seasonKey
+          schema:
+            type: string
+          required: true
+        - in: query
+          name: start
+          description: The place in the database to start, used for pagination
+          required: false
+          schema:
+            type: number
+        - in: query
+          name: count
+          description: Number of matches to return (max 500, default 500)
+          schema:
+            type: number
+            minimum: 0
+            maximum: 500
+            default: 500
+      responses:
+        200:
+          description: All matches from a specific season.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "./types/Match.yml"
+  /match/size:
+    get:
+      summary: Match count
+      tags:
+        - Match
+      responses:
+        200:
+          description: Returns the amount of matches in the current season database
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: integer
+  /match/high-scores:
+    get:
+      summary: High scoring matches
+      tags:
+        - Match
+      parameters:
+        - in: query
+          name: type
+          description: Type of match to search by
+          schema:
+            type: string
+            enum: [quals, elims, single_team, all]
+          required: false
+        - in: query
+          name: season_key
+          description: Season to query by
+          schema:
+            type: string
+          required: false
+        - in: query
+          name: penalty
+          description: Whether to include matches with penalties
+          schema:
+            type: boolean
+          required: false
+      responses:
+        200:
+          description: Returns the match with the highest score based on the query.
+          content:
+            application/json:
+              schema:
+                $ref: "./types/Match.yml"
+  /match/{matchKey}:
+    get:
+      summary: Match info
+      tags:
+        - Match
+      parameters:
+        - in: path
+          name: matchKey
+          schema:
+            type: string
+          required: true
+      responses:
+        200:
+          description: Returns match information about a specific match
+          content:
+            application/json:
+              schema:
+                $ref: "./types/Match.yml"
+              examples:
+                freightFrenzy:
+                  $ref: "./examples/FreightFrenzyMatch.yml"
+  /match/{matchKey}/details:
+    get:
+      summary: Match details
+      tags:
+        - Match
+      parameters:
+        - in: path
+          name: matchKey
+          schema:
+            type: string
+          required: true
+      responses:
+        200:
+          description: Returns match details about a specific match
+          content:
+            application/json:
+              schema:
+                $ref: "./types/MatchDetails.yml"
+  /match/{matchKey}/participants:
+    get:
+      summary: Match participants
+      tags:
+        - Match
+      parameters:
+        - in: path
+          name: matchKey
+          schema:
+            type: string
+          required: true
+      responses:
+        200:
+          description: Returns teams participating in the specified match
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "./types/MatchParticipant.yml"
+  /team:
+    get:
+      summary: All teams
+      tags:
+        - Team
+      parameters:
+        - in: query
+          name: league_key
+          schema:
+            type: string
+          required: false
+        - in: query
+          name: region_key
+          schema:
+            type: string
+          required: false
+        - in: query
+          name: last_active
+          schema:
+            type: string
+          required: false
+        - in: query
+          name: country
+          schema:
+            type: string
+          required: false
+        - in: query
+          name: start
+          schema:
+            type: number
+          required: false
+        - in: query
+          name: count
+          schema:
+            type: number
+            minimum: 0
+            maximum: 500
+            default: 500
+          required: false
+      responses:
+        200:
+          description: Returns all teams
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "./types/Team.yml"
+  /team/size:
+    get:
+      summary: Team count
+      tags:
+        - Team
+      responses:
+        200:
+          description: Returns the amount of teams in the database
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: integer
+  /team/{teamKey}:
+    get:
+      summary: Team info
+      tags:
+        - Team
+      parameters:
+        - in: path
+          name: teamKey
+          schema:
+            type: number
+            minimum: 1
+          required: true
+      responses:
+        200:
+          description: Returns basic information on the specific team
+          content:
+            application/json:
+              schema:
+                $ref: "./types/Team.yml"
+  /team/{teamKey}/wlt:
+    get:
+      summary: Team WLT record
+      tags:
+        - Team
+      parameters:
+        - in: path
+          name: teamKey
+          schema:
+            type: number
+            minimum: 1
+          required: true
+      responses:
+        200:
+          description: Returns the Win/Loss/Tie record of the specified team (includes elimination matches)
+          content:
+            application/json:
+              schema:
+                $ref: "./types/TeamSeasonRecord.yml"
+  /team/{teamKey}/events/{seasonKey}:
+    get:
+      summary: Team events
+      tags:
+        - Team
+        - Event
+      parameters:
+        - in: path
+          name: teamKey
+          schema:
+            type: number
+            minimum: 1
+          required: true
+        - in: path
+          name: seasonKey
+          schema:
+            type: string
+          required: true
+      responses:
+        200:
+          description: Returns all events a team participated in for a given season
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "./types/EventParticipant.yml"
+  /team/{teamKey}/matches/{seasonKey}:
+    get:
+      summary: Team matches
+      tags:
+        - Team
+        - Match
+      parameters:
+        - in: path
+          name: teamKey
+          schema:
+            type: number
+            minimum: 1
+          required: true
+        - in: path
+          name: seasonKey
+          schema:
+            type: string
+          required: true
+      responses:
+        200:
+          description: Returns all matches a team participated in for a given season
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "./types/MatchParticipant.yml"
+  /team/{teamKey}/awards/{seasonKey}:
+    get:
+      summary: Team awards
+      tags:
+        - Team
+      parameters:
+        - in: path
+          name: teamKey
+          schema:
+            type: number
+            minimum: 1
+          required: true
+        - in: path
+          name: seasonKey
+          schema:
+            type: string
+          required: true
+      responses:
+        200:
+          description: Returns all awardsa team received for a given season
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "./types/AwardRecipient.yml"
+  /team/{teamKey}/results/{seasonKey}:
+    get:
+      summary: Team results
+      tags:
+        - Team
+      parameters:
+        - in: path
+          name: teamKey
+          schema:
+            type: number
+            minimum: 1
+          required: true
+        - in: path
+          name: seasonKey
+          schema:
+            type: string
+          required: true
+      responses:
+        200:
+          description: Returns final rankings for a team in a specific season
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "./types/Ranking.yml"
+  /team/{teamKey}/media/{seasonKey}:
+    get:
+      summary: Team media
+      tags:
+        - Team
+      parameters:
+        - in: path
+          name: teamKey
+          schema:
+            type: number
+            minimum: 1
+          required: true
+        - in: path
+          name: seasonKey
+          schema:
+            type: string
+          required: true
+      responses:
+        200:
+          description: Returns all media uploaded for a team in a given season
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "./types/Media.yml"
+  /team/history/{seasonKey}:
+    get:
+      summary: Historical teams
+      tags:
+        - Team
+      parameters:
+        - in: path
+          name: seasonKey
+          schema:
+            type: string
+          required: true
+        - in: query
+          name: league_key
+          schema:
+            type: string
+          required: false
+        - in: query
+          name: region_key
+          schema:
+            type: string
+          required: false
+        - in: query
+          name: last_active
+          schema:
+            type: string
+          required: false
+        - in: query
+          name: country
+          schema:
+            type: string
+          required: false
+        - in: query
+          name: start
+          schema:
+            type: number
+          required: false
+        - in: query
+          name: count
+          schema:
+            type: number
+            minimum: 0
+            maximum: 500
+            default: 500
+          required: false
+      responses:
+        200:
+          description: Returns all teams, as they were in TIMS at the end of the requested season
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "./types/Team.yml"
+  /team/history/{seasonKey}/{teamKey}:
+    get:
+      summary: Historical team
+      tags:
+        - Team
+      parameters:
+        - in: path
+          name: seasonKey
+          schema:
+            type: string
+          required: true
+        - in: path
+          name: teamKey
+          schema:
+            type: number
+            minimum: 1
+          required: true
+      responses:
+        200:
+          description: Returns a team, as it was in TIMS at the end of the requested season
+          content:
+            application/json:
+              schema:
+                $ref: "./types/Team.yml"
+
+  /web/announcements:
+    get:
+      summary: Live web announcements
+      tags:
+        - Web
+      responses:
+        200:
+          description: Returns all live web announcements
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "./types/WebAnnouncement.yml"
+
+  /league/{leagueKey}:
+    get:
+      summary: League info
+      tags:
+        - League
+      parameters:
+        - in: path
+          name: leagueKey
+          schema:
+            type: string
+          required: true
+      responses:
+        200:
+          description: Returns information on the given league
+          content:
+            application/json:
+              schema:
+                $ref: "./types/League.yml"
+  /league/divisions:
+    get:
+      summary: League divisions
+      tags:
+        - League
+      parameters:
+        - in: query
+          name: league_key
+          schema:
+            type: string
+          required: false
+        - in: query
+          name: region_key
+          schema:
+            type: string
+          required: false
+        - in: query
+          name: season_key
+          schema:
+            type: string
+          required: false
+      responses:
+        200:
+          description: Returns all league divisions
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "./types/LeagueDiv.yml"
+
+components:
+  responses:
+    unfinished:
+      description: Unfinished.
+
+  securitySchemes:
+    ApiAppID:
+      type: apiKey
+      in: header
+      name: X-Application-Origin
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-TOA-Key
+
+security:
+  - ApiAppID: []
+    ApiKeyAuth: []

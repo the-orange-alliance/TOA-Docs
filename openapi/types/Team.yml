@@ -1,0 +1,30 @@
+type: object
+properties:
+  team_key:
+    type: string
+  region_key:
+    type: string
+  league_key:
+    type: string
+  team_number:
+    type: number
+  team_name_short:
+    type: string
+  team_name_long:
+    type: string
+  robot_name:
+    type: string
+  last_active:
+    type: number
+  city:
+    type: string
+  state_prov:
+    type: string
+  zip_code:
+    type: number
+  country:
+    type: string
+  rookie_year:
+    type: number
+  website:
+    type: string

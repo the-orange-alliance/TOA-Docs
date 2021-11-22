@@ -1,0 +1,36 @@
+type: object
+properties:
+  rank_key:
+    type: string
+  event_key:
+    type: string
+  team_key:
+    type: string
+  rank:
+    type: number
+  rank_change:
+    type: number
+  opr:
+    type: number
+  np_opr:
+    type: number
+  wins:
+    type: number
+  losses:
+    type: number
+  ties:
+    type: number
+  highest_qual_score:
+    type: number
+  ranking_points:
+    type: number
+  qualifying_points:
+    type: number
+  tie_breaker_points:
+    type: number
+  disqualified:
+    type: number
+  played:
+    type: number
+  team:
+    $ref: "./Team.yml"

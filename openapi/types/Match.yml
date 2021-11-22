@@ -1,0 +1,50 @@
+type: object
+properties:
+  match_key:
+    type: string
+  event_key:
+    type: string
+  tournament_level:
+    type: number
+  scheduled_time:
+    type: string
+  match_name:
+    type: string
+  play_number:
+    type: number
+  field_number:
+    type: number
+  prestart_time:
+    type: string
+  match_start_time:
+    type: string
+  prestart_count:
+    type: number
+  cycle_time:
+    type: string
+  red_score:
+    type: number
+  blue_score:
+    type: number
+  red_penalty:
+    type: number
+  blue_penalty:
+    type: number
+  red_auto_score:
+    type: number
+  blue_auto_score:
+    type: number
+  red_tele_score:
+    type: number
+  blue_tele_score:
+    type: number
+  red_end_score:
+    type: number
+  blue_end_score:
+    type: number
+  video_url:
+    type: number
+  participants:
+    type: array
+    items:
+      $ref: "./EventParticipant.yml"

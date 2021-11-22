@@ -1,0 +1,66 @@
+type: object
+properties:
+  match_detail_key:
+    type: number
+  match_key:
+    type: number
+  red_min_pen:
+    type: number
+  blue_min_pen:
+    type: number
+  red_maj_pen:
+    type: number
+  blue_maj_pen:
+    type: number
+  red_auto_jewels:
+    type: number
+  red_auto_glyphs:
+    type: number
+  red_auto_keys:
+    type: number
+  red_auto_parks:
+    type: number
+  red_tele_glyphs:
+    type: number
+  red_tele_rows:
+    type: number
+  red_tele_cols:
+    type: number
+  red_tele_cyphers:
+    type: number
+  red_end_relic_1:
+    type: number
+  red_end_relic_2:
+    type: number
+  red_end_relic_3:
+    type: number
+  red_end_relic_standing:
+    type: number
+  red_end_robot_balances:
+    type: number
+  blue_auto_jewels:
+    type: number
+  blue_auto_glyphs:
+    type: number
+  blue_auto_keys:
+    type: number
+  blue_auto_parks:
+    type: number
+  blue_tele_glyphs:
+    type: number
+  blue_tele_rows:
+    type: number
+  blue_tele_cols:
+    type: number
+  blue_tele_cyphers:
+    type: number
+  blue_end_relic_1:
+    type: number
+  blue_end_relic_2:
+    type: number
+  blue_end_relic_3:
+    type: number
+  blue_end_relic_standing:
+    type: number
+  blue_end_robot_balances:
+    type: number

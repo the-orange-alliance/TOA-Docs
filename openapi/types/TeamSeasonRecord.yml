@@ -1,0 +1,8 @@
+type: object
+properties:
+  wins:
+    type: number
+  losses:
+    type: number
+  ties:
+    type: number

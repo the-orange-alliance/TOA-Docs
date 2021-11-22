@@ -1,0 +1,52 @@
+type: object
+properties:
+  auto_stone_1:
+    type: number
+  auto_stone_2:
+    type: number
+  auto_stone_3:
+    type: number
+  auto_stone_4:
+    type: number
+  auto_stone_5:
+    type: number
+  auto_stone_6:
+    type: number
+  auto_delivered_skystones:
+    type: number
+  first_returned_is_skystone:
+    type: boolean
+  auto_placed:
+    type: number
+  foundation_repositioned:
+    type: boolean
+  tele_delivered:
+    type: number
+  tele_returned:
+    type: number
+  robot_1:
+    $ref: "./SkystoneRobotParkingStatus.yml"
+  robot_2:
+    $ref: "./SkystoneRobotParkingStatus.yml"
+  foundation_moved:
+    type: boolean
+  auto_transport_points:
+    type: number
+  auto_placed_points:
+    type: number
+  reposition_points:
+    type: number
+  nav_points:
+    type: number
+  tele_transport_points:
+    type: number
+  tele_placed_points:
+    type: number
+  tower_bonus:
+    type: number
+  tower_capping_bonus:
+    type: number
+  tower_level_bonus:
+    type: number
+  end_robots_parked:
+    type: number

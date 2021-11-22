@@ -1,0 +1,18 @@
+type: object
+properties:
+  match_participant_key:
+    type: string
+  match_key:
+    type: string
+  team_key:
+    type: string
+  station:
+    type: number
+  station_status:
+    type: number
+  ref_status:
+    type: number
+  team:
+    $ref: "./Team.yml"
+  is_league_team:
+    type: boolean

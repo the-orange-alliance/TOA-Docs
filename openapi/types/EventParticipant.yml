@@ -1,0 +1,20 @@
+type: object
+properties:
+  event_participant_key:
+    type: string
+  event_key:
+    type: string
+  team_key:
+    type: string
+  is_active:
+    type: boolean
+  card_status:
+    type: string
+  team:
+    $ref: "./Team.yml"
+  event:
+    $ref: "./Event.yml"
+  is_league_team:
+    type: boolean
+  league_team_name:
+    type: string

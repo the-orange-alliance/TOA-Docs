@@ -1,0 +1,18 @@
+type: object
+properties:
+  auto_average_glyphs:
+    type: number
+  tele_average_glyphs:
+    type: number
+  tele_average_ciphers:
+    type: number
+  end_average_relic1:
+    type: number
+  end_average_relic2:
+    type: number
+  end_average_relic3:
+    type: number
+  end_percent_relics_standing:
+    type: number
+  end_average_balanced:
+    type: number

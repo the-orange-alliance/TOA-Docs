@@ -1,0 +1,8 @@
+type: object
+properties:
+  season_key:
+    type: string
+  description:
+    type: string
+  is_active:
+    type: string

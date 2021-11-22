@@ -1,0 +1,18 @@
+type: object
+properties:
+  match_detail_key:
+    type: string
+  match_key:
+    type: string
+  red_min_pen:
+    type: number
+  blue_min_pen:
+    type: number
+  red_maj_pen:
+    type: number
+  blue_maj_pen:
+    type: number
+  red:
+    $ref: "./SkyStoneAllianceDetails.yml"
+  blue:
+    $ref: "./SkyStoneAllianceDetails.yml"

@@ -1,0 +1,32 @@
+type: object
+properties:
+  auto_average_skystones_delivered:
+    type: number
+  auto_average_stones_delivered:
+    type: number
+  auto_average_placed:
+    type: number
+  auto_percent_parked:
+    type: number
+  percent_foundation_moved:
+    type: number
+  percent_foundation_repositioned:
+    type: number
+  tele_average_placed:
+    type: number
+  tele_average_returned:
+    type: number
+  tele_average_delivered:
+    type: number
+  end_average_cap_level:
+    type: number
+  end_average_tower_bonus:
+    type: number
+  end_average_cap_bonus:
+    type: number
+  end_average_level_bonus:
+    type: number
+  end_percent_parked:
+    type: number
+  auto_percent_naved:
+    type: number

@@ -1,0 +1,6 @@
+type: object
+properties:
+  event_type_key:
+    type: string
+  description:
+    type: string

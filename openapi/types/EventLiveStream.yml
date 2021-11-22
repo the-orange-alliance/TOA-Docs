@@ -1,0 +1,22 @@
+type: object
+properties:
+  stream_key:
+    type: string
+  event_key:
+    type: string
+  channel_name:
+    type: string
+  stream_name:
+    type: string
+  stream_type:
+    type: number
+  is_active:
+    type: boolean
+  url:
+    type: string
+  start_datetime:
+    type: string
+  end_datetime:
+    type: string
+  channel_url:
+    type: number

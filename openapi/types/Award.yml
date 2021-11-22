@@ -1,0 +1,10 @@
+type: object
+properties:
+  award_key:
+    type: string
+  award_type:
+    type: string
+  award_description:
+    type: string
+  display_order:
+    type: number

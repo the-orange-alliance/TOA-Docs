@@ -1,0 +1,14 @@
+type: object
+properties:
+  announcement_key:
+    type: string
+  title:
+    type: number
+  publish_date:
+    type: number
+  is_active:
+    type: boolean
+  text:
+    type: string
+  author:
+    type: string

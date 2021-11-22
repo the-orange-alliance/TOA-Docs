@@ -1,0 +1,72 @@
+type: object
+properties:
+  barcode_element_1:
+    $ref: "./FreightFrenzyBarcodeElement.yml"
+  barcode_element_2:
+    $ref: "./FreightFrenzyBarcodeElement.yml"
+  carousel:
+    type: boolean
+  auto_navigated_1:
+    $ref: "./FreightFrenzyParking.yml"
+  auto_navigated_2:
+    $ref: "./FreightFrenzyParking.yml"
+  auto_nav_points:
+    type: number
+  auto_bonus_1:
+    type: boolean
+  auto_bonus_2:
+    type: boolean
+  auto_bonus_points:
+    type: number
+  auto_storage_freight:
+    type: number
+  auto_freight_1:
+    type: number
+  auto_freight_2:
+    type: number
+  auto_freight_3:
+    type: number
+  auto_freight_points:
+    type: number
+  tele_storage_freight:
+    type: number
+  tele_freight_1:
+    type: number
+  tele_freight_2:
+    type: number
+  tele_freight_3:
+    type: number
+  tele_alliance_hub_points:
+    type: number
+  tele_shared_hub_points:
+    type: number
+  tele_storage_points:
+    type: number
+  shared_freight:
+    type: number
+  end_delivered:
+    type: number
+  end_delivered_points:
+    type: number
+  alliance_balanced:
+    type: boolean
+  alliance_balanced_points:
+    type: number
+  shared_unbalanced:
+    type: boolean
+  shared_unbalanced_points:
+    type: number
+  end_parked_1:
+    $ref: "./FreightFrenzyParking.yml"
+  end_parked_2:
+    $ref: "./FreightFrenzyParking.yml"
+  end_parked_points:
+    type: number
+  capped:
+    type: number
+  capped_points:
+    type: number
+  carousel_points:
+    type: number
+  total_points:
+    type: number

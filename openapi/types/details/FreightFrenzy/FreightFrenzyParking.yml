@@ -1,0 +1,9 @@
+type: string
+enum:
+  [
+    NONE,
+    IN_WAREHOUSE,
+    COMPLETELY_IN_WAREHOUSE,
+    IN_STORAGE,
+    COMPLETELY_IN_STORAGE,
+  ]

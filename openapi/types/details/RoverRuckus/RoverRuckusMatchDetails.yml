@@ -1,0 +1,54 @@
+type: object
+properties:
+  match_detail_key:
+    type: number
+  match_key:
+    type: number
+  red_min_pen:
+    type: number
+  blue_min_pen:
+    type: number
+  red_maj_pen:
+    type: number
+  blue_maj_pen:
+    type: number
+  red_auto_land:
+    type: number
+  red_auto_samp:
+    type: number
+  red_auto_claim:
+    type: number
+  red_auto_park:
+    type: number
+  red_tele_gold:
+    type: number
+  red_tele_silver:
+    type: number
+  red_tele_depot:
+    type: number
+  red_end_latch:
+    type: number
+  red_end_in:
+    type: number
+  red_end_comp:
+    type: number
+  blue_auto_land:
+    type: number
+  blue_auto_samp:
+    type: number
+  blue_auto_claim:
+    type: number
+  blue_auto_park:
+    type: number
+  blue_tele_gold:
+    type: number
+  blue_tele_silver:
+    type: number
+  blue_tele_depot:
+    type: number
+  blue_end_latch:
+    type: number
+  blue_end_in:
+    type: number
+  blue_end_comp:
+    type: number

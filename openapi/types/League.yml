@@ -1,0 +1,12 @@
+type: object
+properties:
+  league_key:
+    type: string
+  region_key:
+    type: string
+  season_key:
+    type: string
+  league_division:
+    type: string
+  league_description:
+    type: string

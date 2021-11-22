@@ -1,0 +1,20 @@
+type: object
+properties:
+  auto_percent_landing:
+    type: number
+  auto_percent_sampling:
+    type: number
+  auto_percent_claiming:
+    type: number
+  auto_percent_parking:
+    type: number
+  tele_avg_golds:
+    type: number
+  tele_avg_silvers:
+    type: number
+  tele_avg_depot_minerals:
+    type: number
+  end_percent_latched:
+    type: number
+  end_percent_parked:
+    type: number

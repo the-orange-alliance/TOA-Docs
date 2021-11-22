@@ -1,0 +1,28 @@
+type: object
+properties:
+  auto_average_rings_scored_high:
+    type: number
+  auto_average_rings_scored_mid:
+    type: number
+  auto_average_rings_scored_low:
+    type: number
+  auto_average_power_shots:
+    type: number
+  auto_percent_wobbles_delivered:
+    type: number
+  auto_percent_navigated:
+    type: number
+  tele_average_rings_scored_high:
+    type: number
+  tele_average_rings_scored_mid:
+    type: number
+  tele_average_rings_scored_low:
+    type: number
+  end_average_rings_on_wobble:
+    type: number
+  end_percent_wobbles_on_start:
+    type: number
+  end_percent_wobbles_in_drop_zone:
+    type: number
+  end_average_power_shots:
+    type: number

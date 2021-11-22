@@ -1,15 +1,17 @@
 {
-  "name": "toa-docs",
-  "version": "0.0.0",
-  "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "serve": "vite preview"
-  },
-  "devDependencies": {
-    "vite": "^2.6.4"
-  },
-  "dependencies": {
-    "swagger-ui": "^4.1.0"
-  }
+    "name": "toa-docs",
+    "version": "0.0.0",
+    "scripts": {
+        "dev": "vite",
+        "build": "vite build",
+        "serve": "vite preview",
+        "bundle": "swagger-cli bundle --type yaml -o public/openapi.yml openapi/openapi.yml"
+    },
+    "devDependencies": {
+        "@apidevtools/swagger-cli": "^4.0.4",
+        "vite": "^2.6.4"
+    },
+    "dependencies": {
+        "swagger-ui": "^4.1.0"
+    }
 }

@@ -1,0 +1,42 @@
+type: object
+properties:
+  auto_percent_partially_in_storage:
+    type: number
+  auto_percent_complete_in_storage:
+    type: number
+  auto_percent_partially_in_warehouse:
+    type: number
+  auto_percent_completely_in_warehouse:
+    type: number
+  auto_percent_bonuses_earned:
+    type: number
+  auto_average_storage_freight:
+    type: number
+  auto_average_freight_1:
+    type: number
+  auto_average_freight_2:
+    type: number
+  auto_average_freight_3:
+    type: number
+  tele_average_freight_1:
+    type: number
+  tele_average_freight_2:
+    type: number
+  tele_average_freight_3:
+    type: number
+  tele_average_shared_freight:
+    type: number
+  end_average_delivered:
+    type: number
+  end_percent_hub_balanced:
+    type: number
+  end_percent_shared_hub_unbalanced:
+    type: number
+  end_percent_partially_in_warehouse:
+    type: number
+  end_percent_completely_in_warehouse:
+    type: number
+  percent_capped:
+    type: number
+  percent_carousel:
+    type: number

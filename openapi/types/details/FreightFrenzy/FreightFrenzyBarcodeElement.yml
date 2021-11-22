@@ -1,0 +1,2 @@
+type: string
+enum: [DUCK, TEAM_SHIPPING_ELEMENT]

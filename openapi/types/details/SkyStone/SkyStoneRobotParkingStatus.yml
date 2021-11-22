@@ -1,0 +1,8 @@
+type: object
+properties:
+  nav:
+    type: boolean
+  parked:
+    type: boolean
+  cap_level:
+    type: number

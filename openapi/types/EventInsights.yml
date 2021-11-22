@@ -1,0 +1,17 @@
+type: object
+properties:
+  high_score_match:
+    $ref: "./Match.yml"
+  average_match_score:
+    type: number
+  average_winning_score:
+    type: number
+  average_winning_margin:
+    type: number
+  game:
+    oneOf:
+      - $ref: "./insights/RoverRuckusInsights.yml"
+      - $ref: "./insights/RelicRecoveryInsights.yml"
+      - $ref: "./insights/SkyStoneInsights.yml"
+      - $ref: "./insights/UltimateGoalInsights.yml"
+      - $ref: "./insights/FreightFrenzyInsights.yml"

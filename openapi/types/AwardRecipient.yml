@@ -1,0 +1,18 @@
+type: object
+properties:
+  awards_key:
+    type: string
+  event_key:
+    type: string
+  award_key:
+    type: string
+  team_key:
+    type: number
+  receiver_name:
+    type: string
+  award_name:
+    type: string
+  award:
+    $ref: "./Award.yml"
+  team:
+    $ref: "./Team.yml"

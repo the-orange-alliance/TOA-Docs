@@ -1,0 +1,56 @@
+type: object
+properties:
+  auto_wobble_delivered_1:
+    type: boolean
+  auto_wobble_delivered_2:
+    type: boolean
+  auto_navigated_1:
+    type: boolean
+  auto_navigated_2:
+    type: boolean
+  auto_nav_pts:
+    type: number
+  auto_tower_low:
+    type: number
+  auto_tower_mid:
+    type: number
+  auto_tower_high:
+    type: number
+  auto_tower_points:
+    type: number
+  auto_power_shot_left:
+    type: boolean
+  auto_power_shot_center:
+    type: boolean
+  auto_power_shot_right:
+    type: boolean
+  auto_power_shot_points:
+    type: number
+  auto_wobble_points:
+    type: number
+  tele_tower_low:
+    type: number
+  tele_tower_mid:
+    type: number
+  tele_tower_high:
+    type: number
+  end_wobble_rings_1:
+    type: number
+  end_wobble_rings_2:
+    type: number
+  end_wobble_1:
+    type: number
+  end_wobble_2:
+    type: number
+  end_wobble_points:
+    type: number
+  end_wobble_ring_points:
+    type: number
+  end_power_shot_left:
+    type: boolean
+  end_power_shot_center:
+    type: boolean
+  end_power_shot_right:
+    type: boolean
+  end_power_shot_points:
+    type: number
