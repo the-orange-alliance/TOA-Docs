@@ -1,0 +1,1331 @@
+openapi: 3.0.0
+info:
+  title: The Orange Alliance API
+  version: 1.0.0
+  description: The Goal of TOA API is to provide us, and potential outside users a way to query our databases.
+servers:
+  - url: https://theorangealliance.org/api
+
+paths:
+  /:
+    get:
+      summary: API Version
+      tags:
+        - API
+      responses:
+        200:
+          description: Gives the version info of the API.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  version:
+                    type: string
+  /docs:
+    get:
+      summary: TODO
+      tags:
+        - API
+      responses:
+        200:
+          $ref: "#/components/responses/unfinished"
+  /docs/get:
+    get:
+      summary: TODO
+      tags:
+        - API
+      responses:
+        200:
+          $ref: "#/components/responses/unfinished"
+  /docs/post:
+    get:
+      summary: TODO
+      tags:
+        - API
+      responses:
+        200:
+          $ref: "#/components/responses/unfinished"
+  /docs/put:
+    get:
+      summary: TODO
+      tags:
+        - API
+      responses:
+        200:
+          $ref: "#/components/responses/unfinished"
+  /docs/models:
+    get:
+      summary: TODO
+      tags:
+        - API
+      responses:
+        200:
+          $ref: "#/components/responses/unfinished"
+  /event-types:
+    get:
+      summary: Returns all event types.
+      tags:
+        - API
+        - Event
+      responses:
+        200:
+          description: Returns all the possible event types
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/EventType"
+  /seasons:
+    get:
+      summary: Get all FTC seasons
+      tags:
+        - API
+      responses:
+        200:
+          description: Return all FTC seasons
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Season"
+  /regions:
+    get:
+      summary: Get all FTC regions
+      tags:
+        - API
+      responses:
+        200:
+          description: Return all FTC regions
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Region"
+  /leagues:
+    get:
+      summary: Get all FTC leagues
+      tags:
+        - API
+      responses:
+        200:
+          description: Return all FTC leagues
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/League"
+  /streams:
+    get:
+      summary: Get all active livestreams
+      tags:
+        - API
+        - Event
+      responses:
+        200:
+          description: Return all active event livestreams
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/EventLiveStream"
+  /event:
+    get:
+      summary: Return all events based on the given query
+      tags:
+        - Event
+      parameters:
+        - in: query
+          name: league_key
+          schema:
+            type: string
+          description: Filter events by league
+        - in: query
+          name: region_key
+          schema:
+            type: string
+          description: Filter events by region
+        - in: query
+          name: season_key
+          schema:
+            type: string
+          description: Filter events by season
+        - in: query
+          name: type
+          schema:
+            type: string
+          description: Filter events by their type
+      responses:
+        200:
+          description: Return all events using the given query
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Event"
+  /event/size:
+    get:
+      summary: Event count
+      tags:
+        - Event
+      responses:
+        200:
+          description: Returns the amount of events in the database
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: integer
+
+  /match/{matchKey}:
+    get:
+      summary: Get a match by ID
+      tags:
+        - Match
+      responses:
+        200:
+          description: Match object
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Match"
+              examples:
+                freightFrenzy:
+                  $ref: "#/components/examples/FreightFrenzyMatch"
+
+components:
+  responses:
+    unfinished:
+      description: Unfinished.
+
+  schemas:
+    Alliance:
+      type: object
+      properties:
+        seed:
+          type: number
+        captain:
+          $ref: "#/components/schemas/Team"
+        pick1:
+          $ref: "#/components/schemas/Team"
+        pick2:
+          type:
+            $ref: "#/components/schemas/Team"
+          nullable: true
+    Award:
+      type: object
+      properties:
+        award_key:
+          type: string
+        award_type:
+          type: string
+        award_description:
+          type: string
+        display_order:
+          type: number
+    AwardRecipient:
+      type: object
+      properties:
+        awards_key:
+          type: string
+        event_key:
+          type: string
+        award_key:
+          type: string
+        team_key:
+          type: number
+        receiver_name:
+          type: string
+        award_name:
+          type: string
+        award:
+          $ref: "#/components/schemas/Award"
+        team:
+          $ref: "#/components/schemas/Team"
+    Event:
+      type: object
+      properties:
+        event_key:
+          type: string
+        season_key:
+          type: string
+        region_key:
+          type: string
+        league_key:
+          type: string
+        event_code:
+          type: string
+        event_type_key:
+          type: string
+        division_key:
+          type: number
+        division_name:
+          type: string
+        event_name:
+          type: string
+        start_date:
+          type: string
+        end_date:
+          type: string
+        week_key:
+          type: string
+        city:
+          type: string
+        state_prov:
+          type: string
+        country:
+          type: string
+        venue:
+          type: string
+        website:
+          type: string
+        time_zone:
+          type: string
+        is_public:
+          type: boolean
+        data_source:
+          type: number
+    EventInsights:
+      type: object
+      properties:
+        high_score_match:
+          $ref: "#/components/schemas/Match"
+        average_match_score:
+          type: number
+        average_winning_score:
+          type: number
+        average_winning_margin:
+          type: number
+        game:
+          oneOf:
+            - $ref: "#/components/schemas/RoverRuckusInsights"
+            - $ref: "#/components/schemas/RelicRecoveryInsights"
+            - $ref: "#/components/schemas/SkyStoneInsights"
+            - $ref: "#/components/schemas/UltimateGoalInsights"
+            - $ref: "#/components/schemas/FreightFrenzyInsights"
+    EventLiveStream:
+      type: object
+      properties:
+        stream_key:
+          type: string
+        event_key:
+          type: string
+        channel_name:
+          type: string
+        stream_name:
+          type: string
+        stream_type:
+          type: number
+        is_active:
+          type: boolean
+        url:
+          type: string
+        start_datetime:
+          type: string
+        end_datetime:
+          type: string
+        channel_url:
+          type: number
+    EventParticipant:
+      type: object
+      properties:
+        event_participant_key:
+          type: string
+        event_key:
+          type: string
+        team_key:
+          type: string
+        is_active:
+          type: boolean
+        card_status:
+          type: string
+        team:
+          $ref: "#/components/schemas/Team"
+        event:
+          $ref: "#/components/schemas/Event"
+        is_league_team:
+          type: boolean
+        league_team_name:
+          type: string
+    EventType:
+      type: object
+      properties:
+        event_type_key:
+          type: string
+        description:
+          type: string
+    League:
+      type: object
+      properties:
+        league_key:
+          type: string
+        region_key:
+          type: string
+        season_key:
+          type: string
+        league_division:
+          type: string
+        league_description:
+          type: string
+    LeagueDiv:
+      type: object
+      properties:
+        division_key:
+          type: string
+        league_key:
+          type: string
+        region_key:
+          type: string
+        season_key:
+          type: string
+        division_description:
+          type: string
+    Match:
+      type: object
+      properties:
+        match_key:
+          type: string
+        event_key:
+          type: string
+        tournament_level:
+          type: number
+        scheduled_time:
+          type: string
+        match_name:
+          type: string
+        play_number:
+          type: number
+        field_number:
+          type: number
+        prestart_time:
+          type: string
+        match_start_time:
+          type: string
+        prestart_count:
+          type: number
+        cycle_time:
+          type: string
+        red_score:
+          type: number
+        blue_score:
+          type: number
+        red_penalty:
+          type: number
+        blue_penalty:
+          type: number
+        red_auto_score:
+          type: number
+        blue_auto_score:
+          type: number
+        red_tele_score:
+          type: number
+        blue_tele_score:
+          type: number
+        red_end_score:
+          type: number
+        blue_end_score:
+          type: number
+        video_url:
+          type: number
+        participants:
+          type: array
+          items:
+            $ref: "#/components/schemas/EventParticipant"
+    MatchDetails:
+      type: object
+      properties:
+        match_detail_key:
+          type: string
+        match_key:
+          type: string
+        red_min_pen:
+          type: number
+        blue_min_pen:
+          type: number
+        red_maj_pen:
+          type: number
+        blue_maj_pen:
+          type: number
+    MatchParticipant:
+      type: object
+      properties:
+        match_participant_key:
+          type: string
+        match_key:
+          type: string
+        team_key:
+          type: string
+        station:
+          type: number
+        station_status:
+          type: number
+        ref_status:
+          type: number
+        team:
+          $ref: "#/components/schemas/Team"
+        is_league_team:
+          type: boolean
+    Media:
+      type: object
+      properties:
+        media_key:
+          type: string
+        event_key:
+          type: string
+        team_key:
+          type: string
+        media_type:
+          type: number
+        is_primary:
+          type: boolean
+        media_title:
+          type: string
+        link:
+          type: string
+    Ranking:
+      type: object
+      properties:
+        rank_key:
+          type: string
+        event_key:
+          type: string
+        team_key:
+          type: string
+        rank:
+          type: number
+        rank_change:
+          type: number
+        opr:
+          type: number
+        np_opr:
+          type: number
+        wins:
+          type: number
+        losses:
+          type: number
+        ties:
+          type: number
+        highest_qual_score:
+          type: number
+        ranking_points:
+          type: number
+        qualifying_points:
+          type: number
+        tie_breaker_points:
+          type: number
+        disqualified:
+          type: number
+        played:
+          type: number
+        team:
+          $ref: "#/components/schemas/Team"
+    Region:
+      type: object
+      properties:
+        region_key:
+          type: string
+        description:
+          type: string
+    Season:
+      type: object
+      properties:
+        season_key:
+          type: string
+        description:
+          type: string
+        is_active:
+          type: string
+    Team:
+      type: object
+      properties:
+        team_key:
+          type: string
+        region_key:
+          type: string
+        league_key:
+          type: string
+        team_number:
+          type: number
+        team_name_short:
+          type: string
+        team_name_long:
+          type: string
+        robot_name:
+          type: string
+        last_active:
+          type: number
+        city:
+          type: string
+        state_prov:
+          type: string
+        zip_code:
+          type: number
+        country:
+          type: string
+        rookie_year:
+          type: number
+        website:
+          type: string
+    TeamSeasonRecord:
+      type: object
+      properties:
+        wins:
+          type: number
+        losses:
+          type: number
+        ties:
+          type: number
+    WebAnnouncement:
+      type: object
+      properties:
+        announcement_key:
+          type: string
+        title:
+          type: number
+        publish_date:
+          type: number
+        is_active:
+          type: boolean
+        text:
+          type: string
+        author:
+          type: string
+    # SEASON SPECIFICS
+    FreightFrenzyMatchDetails:
+      type: object
+      properties:
+        match_detail_key:
+          type: string
+        match_key:
+          type: string
+        red_min_pen:
+          type: number
+        blue_min_pen:
+          type: number
+        red_maj_pen:
+          type: number
+        blue_maj_pen:
+          type: number
+        red:
+          $ref: "#/components/schemas/FreightFrenzyAllianceDetails"
+        blue:
+          $ref: "#/components/schemas/FreightFrenzyAllianceDetails"
+    FreightFrenzyAllianceDetails:
+      type: object
+      properties:
+        barcode_element_1:
+          $ref: "#/components/schemas/FreightFrenzyBarcodeElement"
+        barcode_element_2:
+          $ref: "#/components/schemas/FreightFrenzyBarcodeElement"
+        carousel:
+          type: boolean
+        auto_navigated_1:
+          $ref: "#/components/schemas/FreightFrenzyParking"
+        auto_navigated_2:
+          $ref: "#/components/schemas/FreightFrenzyParking"
+        auto_nav_points:
+          type: number
+        auto_bonus_1:
+          type: boolean
+        auto_bonus_2:
+          type: boolean
+        auto_bonus_points:
+          type: number
+        auto_storage_freight:
+          type: number
+        auto_freight_1:
+          type: number
+        auto_freight_2:
+          type: number
+        auto_freight_3:
+          type: number
+        auto_freight_points:
+          type: number
+        tele_storage_freight:
+          type: number
+        tele_freight_1:
+          type: number
+        tele_freight_2:
+          type: number
+        tele_freight_3:
+          type: number
+        tele_alliance_hub_points:
+          type: number
+        tele_shared_hub_points:
+          type: number
+        tele_storage_points:
+          type: number
+        shared_freight:
+          type: number
+        end_delivered:
+          type: number
+        end_delivered_points:
+          type: number
+        alliance_balanced:
+          type: boolean
+        alliance_balanced_points:
+          type: number
+        shared_unbalanced:
+          type: boolean
+        shared_unbalanced_points:
+          type: number
+        end_parked_1:
+          $ref: "#/components/schemas/FreightFrenzyParking"
+        end_parked_2:
+          $ref: "#/components/schemas/FreightFrenzyParking"
+        end_parked_points:
+          type: number
+        capped:
+          type: number
+        capped_points:
+          type: number
+        carousel_points:
+          type: number
+        total_points:
+          type: number
+    FreightFrenzyParking:
+      type: string
+      enum:
+        [
+          NONE,
+          IN_WAREHOUSE,
+          COMPLETELY_IN_WAREHOUSE,
+          IN_STORAGE,
+          COMPLETELY_IN_STORAGE,
+        ]
+    FreightFrenzyBarcodeElement:
+      type: string
+      enum: [DUCK, TEAM_SHIPPING_ELEMENT]
+    FreightFrenzyInsights:
+      type: object
+      properties:
+        auto_percent_partially_in_storage:
+          type: number
+        auto_percent_complete_in_storage:
+          type: number
+        auto_percent_partially_in_warehouse:
+          type: number
+        auto_percent_completely_in_warehouse:
+          type: number
+        auto_percent_bonuses_earned:
+          type: number
+        auto_average_storage_freight:
+          type: number
+        auto_average_freight_1:
+          type: number
+        auto_average_freight_2:
+          type: number
+        auto_average_freight_3:
+          type: number
+        tele_average_freight_1:
+          type: number
+        tele_average_freight_2:
+          type: number
+        tele_average_freight_3:
+          type: number
+        tele_average_shared_freight:
+          type: number
+        end_average_delivered:
+          type: number
+        end_percent_hub_balanced:
+          type: number
+        end_percent_shared_hub_unbalanced:
+          type: number
+        end_percent_partially_in_warehouse:
+          type: number
+        end_percent_completely_in_warehouse:
+          type: number
+        percent_capped:
+          type: number
+        percent_carousel:
+          type: number
+    UltimateGoalMatchDetails:
+      type: object
+      properties:
+        match_detail_key:
+          type: string
+        match_key:
+          type: string
+        red_min_pen:
+          type: number
+        blue_min_pen:
+          type: number
+        red_maj_pen:
+          type: number
+        blue_maj_pen:
+          type: number
+        red:
+          $ref: "#/components/schemas/UltimateGoalAllianceDetails"
+        blue:
+          $ref: "#/components/schemas/UltimateGoalAllianceDetails"
+    UltimateGoalAllianceDetails:
+      type: object
+      properties:
+        auto_wobble_delivered_1:
+          type: boolean
+        auto_wobble_delivered_2:
+          type: boolean
+        auto_navigated_1:
+          type: boolean
+        auto_navigated_2:
+          type: boolean
+        auto_nav_pts:
+          type: number
+        auto_tower_low:
+          type: number
+        auto_tower_mid:
+          type: number
+        auto_tower_high:
+          type: number
+        auto_tower_points:
+          type: number
+        auto_power_shot_left:
+          type: boolean
+        auto_power_shot_center:
+          type: boolean
+        auto_power_shot_right:
+          type: boolean
+        auto_power_shot_points:
+          type: number
+        auto_wobble_points:
+          type: number
+        tele_tower_low:
+          type: number
+        tele_tower_mid:
+          type: number
+        tele_tower_high:
+          type: number
+        end_wobble_rings_1:
+          type: number
+        end_wobble_rings_2:
+          type: number
+        end_wobble_1:
+          type: number
+        end_wobble_2:
+          type: number
+        end_wobble_points:
+          type: number
+        end_wobble_ring_points:
+          type: number
+        end_power_shot_left:
+          type: boolean
+        end_power_shot_center:
+          type: boolean
+        end_power_shot_right:
+          type: boolean
+        end_power_shot_points:
+          type: number
+    UltimateGoalInsights:
+      type: object
+      properties:
+        auto_average_rings_scored_high:
+          type: number
+        auto_average_rings_scored_mid:
+          type: number
+        auto_average_rings_scored_low:
+          type: number
+        auto_average_power_shots:
+          type: number
+        auto_percent_wobbles_delivered:
+          type: number
+        auto_percent_navigated:
+          type: number
+        tele_average_rings_scored_high:
+          type: number
+        tele_average_rings_scored_mid:
+          type: number
+        tele_average_rings_scored_low:
+          type: number
+        end_average_rings_on_wobble:
+          type: number
+        end_percent_wobbles_on_start:
+          type: number
+        end_percent_wobbles_in_drop_zone:
+          type: number
+        end_average_power_shots:
+          type: number
+    SkyStoneMatchDetails:
+      type: object
+      properties:
+        match_detail_key:
+          type: string
+        match_key:
+          type: string
+        red_min_pen:
+          type: number
+        blue_min_pen:
+          type: number
+        red_maj_pen:
+          type: number
+        blue_maj_pen:
+          type: number
+        red:
+          $ref: "#/components/schemas/SkyStoneAllianceDetails"
+        blue:
+          $ref: "#/components/schemas/SkyStoneAllianceDetails"
+    SkyStoneAllianceDetails:
+      type: object
+      properties:
+        auto_stone_1:
+          type: number
+        auto_stone_2:
+          type: number
+        auto_stone_3:
+          type: number
+        auto_stone_4:
+          type: number
+        auto_stone_5:
+          type: number
+        auto_stone_6:
+          type: number
+        auto_delivered_skystones:
+          type: number
+        first_returned_is_skystone:
+          type: boolean
+        auto_placed:
+          type: number
+        foundation_repositioned:
+          type: boolean
+        tele_delivered:
+          type: number
+        tele_returned:
+          type: number
+        robot_1:
+          $ref: "#/components/schemas/SkystoneRobotParkingStatus"
+        robot_2:
+          $ref: "#/components/schemas/SkystoneRobotParkingStatus"
+        foundation_moved:
+          type: boolean
+        auto_transport_points:
+          type: number
+        auto_placed_points:
+          type: number
+        reposition_points:
+          type: number
+        nav_points:
+          type: number
+        tele_transport_points:
+          type: number
+        tele_placed_points:
+          type: number
+        tower_bonus:
+          type: number
+        tower_capping_bonus:
+          type: number
+        tower_level_bonus:
+          type: number
+        end_robots_parked:
+          type: number
+    SkystoneRobotParkingStatus:
+      type: object
+      properties:
+        nav:
+          type: boolean
+        parked:
+          type: boolean
+        cap_level:
+          type: number
+    SkyStoneInsights:
+      type: object
+      properties:
+        auto_average_skystones_delivered:
+          type: number
+        auto_average_stones_delivered:
+          type: number
+        auto_average_placed:
+          type: number
+        auto_percent_parked:
+          type: number
+        percent_foundation_moved:
+          type: number
+        percent_foundation_repositioned:
+          type: number
+        tele_average_placed:
+          type: number
+        tele_average_returned:
+          type: number
+        tele_average_delivered:
+          type: number
+        end_average_cap_level:
+          type: number
+        end_average_tower_bonus:
+          type: number
+        end_average_cap_bonus:
+          type: number
+        end_average_level_bonus:
+          type: number
+        end_percent_parked:
+          type: number
+        auto_percent_naved:
+          type: number
+    RelicRecoveryMatchDetails:
+      type: object
+      properties:
+        match_detail_key:
+          type: number
+        match_key:
+          type: number
+        red_min_pen:
+          type: number
+        blue_min_pen:
+          type: number
+        red_maj_pen:
+          type: number
+        blue_maj_pen:
+          type: number
+        red_auto_jewels:
+          type: number
+        red_auto_glyphs:
+          type: number
+        red_auto_keys:
+          type: number
+        red_auto_parks:
+          type: number
+        red_tele_glyphs:
+          type: number
+        red_tele_rows:
+          type: number
+        red_tele_cols:
+          type: number
+        red_tele_cyphers:
+          type: number
+        red_end_relic_1:
+          type: number
+        red_end_relic_2:
+          type: number
+        red_end_relic_3:
+          type: number
+        red_end_relic_standing:
+          type: number
+        red_end_robot_balances:
+          type: number
+        blue_auto_jewels:
+          type: number
+        blue_auto_glyphs:
+          type: number
+        blue_auto_keys:
+          type: number
+        blue_auto_parks:
+          type: number
+        blue_tele_glyphs:
+          type: number
+        blue_tele_rows:
+          type: number
+        blue_tele_cols:
+          type: number
+        blue_tele_cyphers:
+          type: number
+        blue_end_relic_1:
+          type: number
+        blue_end_relic_2:
+          type: number
+        blue_end_relic_3:
+          type: number
+        blue_end_relic_standing:
+          type: number
+        blue_end_robot_balances:
+          type: number
+    RelicRecoveryInsights:
+      type: object
+      properties:
+        auto_average_glyphs:
+          type: number
+        tele_average_glyphs:
+          type: number
+        tele_average_ciphers:
+          type: number
+        end_average_relic1:
+          type: number
+        end_average_relic2:
+          type: number
+        end_average_relic3:
+          type: number
+        end_percent_relics_standing:
+          type: number
+        end_average_balanced:
+          type: number
+    RoverRuckusMatchDetails:
+      type: object
+      properties:
+        match_detail_key:
+          type: number
+        match_key:
+          type: number
+        red_min_pen:
+          type: number
+        blue_min_pen:
+          type: number
+        red_maj_pen:
+          type: number
+        blue_maj_pen:
+          type: number
+        red_auto_land:
+          type: number
+        red_auto_samp:
+          type: number
+        red_auto_claim:
+          type: number
+        red_auto_park:
+          type: number
+        red_tele_gold:
+          type: number
+        red_tele_silver:
+          type: number
+        red_tele_depot:
+          type: number
+        red_end_latch:
+          type: number
+        red_end_in:
+          type: number
+        red_end_comp:
+          type: number
+        blue_auto_land:
+          type: number
+        blue_auto_samp:
+          type: number
+        blue_auto_claim:
+          type: number
+        blue_auto_park:
+          type: number
+        blue_tele_gold:
+          type: number
+        blue_tele_silver:
+          type: number
+        blue_tele_depot:
+          type: number
+        blue_end_latch:
+          type: number
+        blue_end_in:
+          type: number
+        blue_end_comp:
+          type: number
+    RoverRuckusInsights:
+      type: object
+      properties:
+        auto_percent_landing:
+          type: number
+        auto_percent_sampling:
+          type: number
+        auto_percent_claiming:
+          type: number
+        auto_percent_parking:
+          type: number
+        tele_avg_golds:
+          type: number
+        tele_avg_silvers:
+          type: number
+        tele_avg_depot_minerals:
+          type: number
+        end_percent_latched:
+          type: number
+        end_percent_parked:
+          type: number
+    VelocityVortexMatchDetails:
+      type: object
+      properties:
+        match_detail_key:
+          type: number
+        match_key:
+          type: number
+        red_min_pen:
+          type: number
+        blue_min_pen:
+          type: number
+        red_maj_pen:
+          type: number
+        blue_maj_pen:
+          type: number
+        red_auto_beacons:
+          type: number
+        red_auto_cap:
+          type: number
+        red_auto_part_cen:
+          type: number
+        red_auto_part_cor:
+          type: number
+        red_auto_robot_1:
+          type: number
+        red_auto_robot_2:
+          type: number
+        red_tele_beacons:
+          type: number
+        red_tele_part_cen:
+          type: number
+        red_tele_part_cor:
+          type: number
+        red_tele_cap:
+          type: number
+        blue_auto_beacons:
+          type: number
+        blue_auto_cap:
+          type: number
+        blue_auto_part_cen:
+          type: number
+        blue_auto_part_cor:
+          type: number
+        blue_auto_robot_1:
+          type: number
+        blue_auto_robot_2:
+          type: number
+        blue_tele_beacons:
+          type: number
+        blue_tele_part_cen:
+          type: number
+        blue_tele_part_cor:
+          type: number
+        blue_tele_cap:
+          type: number
+  securitySchemes:
+    ApiAppID:
+      type: apiKey
+      in: header
+      name: X-Application-Origin
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-TOA-Key
+  examples:
+    FreightFrenzyMatch:
+      summary: Match from 2021/2022 season (Freight Frenzy)
+      value:
+        [
+          {
+            "match_key": "2122-FIM-MOLM1-Q001-1",
+            "event_key": "2122-FIM-MOLM1",
+            "tournament_level": 1,
+            "scheduled_time": "2021-11-01T18:26:00.000Z",
+            "match_name": "Quals 1",
+            "play_number": 1,
+            "field_number": 1,
+            "prestart_time": null,
+            "match_start_time": null,
+            "prestart_count": null,
+            "cycle_time": null,
+            "red_score": 77,
+            "blue_score": 0,
+            "red_penalty": 0,
+            "blue_penalty": 2,
+            "red_auto_score": 15,
+            "blue_auto_score": 36,
+            "red_tele_score": 42,
+            "blue_tele_score": 0,
+            "red_end_score": 20,
+            "blue_end_score": 0,
+            "video_url": null,
+            "participants":
+              [
+                {
+                  "match_participant_key": "2122-FIM-MOLM1-Q001-1-R1",
+                  "match_key": "2122-FIM-MOLM1-Q001-1",
+                  "team_key": "8478",
+                  "station": 11,
+                  "station_status": 1,
+                  "ref_status": 0,
+                  "team":
+                    {
+                      "team_key": "8478",
+                      "region_key": "FIM",
+                      "league_key": null,
+                      "team_number": 8478,
+                      "team_name_short": "E-Bots",
+                      "team_name_long": "Hart Middle School PTSA&Hart Middle School",
+                      "robot_name": null,
+                      "last_active": "2122",
+                      "city": "Rochester",
+                      "state_prov": "MI",
+                      "zip_code": "48307",
+                      "country": "USA",
+                      "rookie_year": 2014,
+                      "website": "http://www.ebots8478.com",
+                    },
+                },
+                {
+                  "match_participant_key": "2122-FIM-MOLM1-Q001-1-R2",
+                  "match_key": "2122-FIM-MOLM1-Q001-1",
+                  "team_key": "11717",
+                  "station": 12,
+                  "station_status": 1,
+                  "ref_status": 0,
+                  "team":
+                    {
+                      "team_key": "11717",
+                      "region_key": "FIM",
+                      "league_key": null,
+                      "team_number": 11717,
+                      "team_name_short": "Circuit Breakers",
+                      "team_name_long": "REV Robotics/FCA Foundation/Spout Analytics/Michigan Department of Education&Baker Middle School&Boulan Park Middle School",
+                      "robot_name": null,
+                      "last_active": "2122",
+                      "city": "Troy",
+                      "state_prov": "MI",
+                      "zip_code": "48083",
+                      "country": "USA",
+                      "rookie_year": 2016,
+                      "website": "https://ftc11717.org",
+                    },
+                },
+                {
+                  "match_participant_key": "2122-FIM-MOLM1-Q001-1-B1",
+                  "match_key": "2122-FIM-MOLM1-Q001-1",
+                  "team_key": "15004",
+                  "station": 21,
+                  "station_status": 1,
+                  "ref_status": 0,
+                  "team":
+                    {
+                      "team_key": "15004",
+                      "region_key": "FIM",
+                      "league_key": null,
+                      "team_number": 15004,
+                      "team_name_short": "Tech KNOW Logic",
+                      "team_name_long": "Baker Middle School",
+                      "robot_name": null,
+                      "last_active": "2122",
+                      "city": "Troy",
+                      "state_prov": "MI",
+                      "zip_code": "48083",
+                      "country": "USA",
+                      "rookie_year": 2018,
+                      "website": null,
+                    },
+                },
+                {
+                  "match_participant_key": "2122-FIM-MOLM1-Q001-1-B2",
+                  "match_key": "2122-FIM-MOLM1-Q001-1",
+                  "team_key": "17181",
+                  "station": 22,
+                  "station_status": 1,
+                  "ref_status": 0,
+                  "team":
+                    {
+                      "team_key": "17181",
+                      "region_key": "FIM",
+                      "league_key": null,
+                      "team_number": 17181,
+                      "team_name_short": "Vibranium Vikings",
+                      "team_name_long": "DURMA/APTIV/ADAMBOTS &Van Hoosen Middle School",
+                      "robot_name": null,
+                      "last_active": "2122",
+                      "city": "Rochester",
+                      "state_prov": "MI",
+                      "zip_code": "48306",
+                      "country": "USA",
+                      "rookie_year": 2019,
+                      "website": null,
+                    },
+                },
+              ],
+          },
+        ]
+
+security:
+  - ApiAppID: []
+    ApiKeyAuth: []
