@@ -18,7 +18,15 @@ jobs:
         with:
           node-version: 16.x
           cache: "npm"
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.x"
       - run: npm i
+      - name: Build _index.yml files
+        run: python3 autogen_index.py
+      - name: Pack up docs into single definition file
+        run: npm run bundle
       - run: npm run build
       - name: Deploy to Pages
         uses: JamesIves/github-pages-deploy-action@4.1.6

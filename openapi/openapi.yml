@@ -933,6 +933,9 @@ components:
     unfinished:
       description: Unfinished.
 
+  schemas:
+    $ref: "./types/_index.yml"
+
   securitySchemes:
     ApiAppID:
       type: apiKey
