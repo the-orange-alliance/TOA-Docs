@@ -6,5 +6,5 @@ const path = location.pathname;
 
 SwaggerUI({
     dom_id: "#app",
-    url: `${pathname}openapi.yml`,
+    url: `${path}openapi.yml`,
 });
