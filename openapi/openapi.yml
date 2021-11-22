@@ -6,6 +6,28 @@ info:
 servers:
   - url: https://theorangealliance.org/api
 
+components:
+  responses:
+    unfinished:
+      description: Unfinished.
+
+  schemas:
+    $ref: "./types/_index.yml"
+
+  securitySchemes:
+    ApiAppID:
+      type: apiKey
+      in: header
+      name: X-Application-Origin
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-TOA-Key
+
+security:
+  - ApiAppID: []
+    ApiKeyAuth: []
+
 paths:
   /:
     get:
@@ -927,25 +949,3 @@ paths:
                 type: array
                 items:
                   $ref: "./types/LeagueDiv.yml"
-
-components:
-  responses:
-    unfinished:
-      description: Unfinished.
-
-  schemas:
-    $ref: "./types/_index.yml"
-
-  securitySchemes:
-    ApiAppID:
-      type: apiKey
-      in: header
-      name: X-Application-Origin
-    ApiKeyAuth:
-      type: apiKey
-      in: header
-      name: X-TOA-Key
-
-security:
-  - ApiAppID: []
-    ApiKeyAuth: []

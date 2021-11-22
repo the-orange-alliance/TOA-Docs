@@ -5,7 +5,7 @@
         "dev": "vite",
         "build": "vite build",
         "serve": "vite preview",
-        "bundle": "swagger-cli bundle -r --type yaml -o public/openapi.yml openapi/openapi.yml"
+        "bundle": "swagger-cli bundle --type yaml -o public/openapi.yml openapi/openapi.yml"
     },
     "devDependencies": {
         "@apidevtools/swagger-cli": "^4.0.4",
