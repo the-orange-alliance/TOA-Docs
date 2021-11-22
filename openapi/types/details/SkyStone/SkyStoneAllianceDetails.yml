@@ -25,9 +25,9 @@ properties:
   tele_returned:
     type: number
   robot_1:
-    $ref: "./SkystoneRobotParkingStatus.yml"
+    $ref: "./SkyStoneRobotParkingStatus.yml"
   robot_2:
-    $ref: "./SkystoneRobotParkingStatus.yml"
+    $ref: "./SkyStoneRobotParkingStatus.yml"
   foundation_moved:
     type: boolean
   auto_transport_points:
