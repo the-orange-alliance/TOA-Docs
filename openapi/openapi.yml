@@ -568,9 +568,9 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Match"
-              examples:
-                freightFrenzy:
-                  $ref: "./examples/FreightFrenzyMatch.yml"
+              # examples:
+              #   freightFrenzy:
+              #     $ref: "./examples/FreightFrenzyMatch.yml"
   /match/{matchKey}/details:
     get:
       summary: Match details
