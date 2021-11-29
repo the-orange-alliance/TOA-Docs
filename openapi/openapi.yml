@@ -12,7 +12,81 @@ components:
       description: Unfinished.
 
   schemas:
-    $ref: "./types/_index.yml"
+    # $ref: "./types/_index.yml"
+    AwardRecipient:
+      $ref: "./types/AwardRecipient.yml"
+    Media:
+      $ref: "./types/Media.yml"
+    EventInsights:
+      $ref: "./types/EventInsights.yml"
+    Award:
+      $ref: "./types/Award.yml"
+    EventType:
+      $ref: "./types/EventType.yml"
+    MatchParticipant:
+      $ref: "./types/MatchParticipant.yml"
+    MatchDetails:
+      $ref: "./types/MatchDetails.yml"
+    EventLiveStream:
+      $ref: "./types/EventLiveStream.yml"
+    League:
+      $ref: "./types/League.yml"
+    Alliance:
+      $ref: "./types/Alliance.yml"
+    Match:
+      $ref: "./types/Match.yml"
+    WebAnnouncement:
+      $ref: "./types/WebAnnouncement.yml"
+    TeamSeasonRecord:
+      $ref: "./types/TeamSeasonRecord.yml"
+    Team:
+      $ref: "./types/Team.yml"
+    Ranking:
+      $ref: "./types/Ranking.yml"
+    EventParticipant:
+      $ref: "./types/EventParticipant.yml"
+    Region:
+      $ref: "./types/Region.yml"
+    Event:
+      $ref: "./types/Event.yml"
+    Season:
+      $ref: "./types/Season.yml"
+    LeagueDiv:
+      $ref: "./types/LeagueDiv.yml"
+    FreightFrenzyInsights:
+      $ref: "./types/insights/FreightFrenzyInsights.yml"
+    SkyStoneInsights:
+      $ref: "./types/insights/SkyStoneInsights.yml"
+    UltimateGoalInsights:
+      $ref: "./types/insights/UltimateGoalInsights.yml"
+    RelicRecoveryInsights:
+      $ref: "./types/insights/RelicRecoveryInsights.yml"
+    RoverRuckusInsights:
+      $ref: "./types/insights/RoverRuckusInsights.yml"
+    RoverRuckusMatchDetails:
+      $ref: "./types/details/RoverRuckus/RoverRuckusMatchDetails.yml"
+    UltimateGoalMatchDetails:
+      $ref: "./types/details/UltimateGoal/UltimateGoalMatchDetails.yml"
+    UltimateGoalAllianceDetails:
+      $ref: "./types/details/UltimateGoal/UltimateGoalAllianceDetails.yml"
+    FreightFrenzyAllianceDetails:
+      $ref: "./types/details/FreightFrenzy/FreightFrenzyAllianceDetails.yml"
+    FreightFrenzyMatchDetails:
+      $ref: "./types/details/FreightFrenzy/FreightFrenzyMatchDetails.yml"
+    FreightFrenzyParking:
+      $ref: "./types/details/FreightFrenzy/FreightFrenzyParking.yml"
+    FreightFrenzyBarcodeElement:
+      $ref: "./types/details/FreightFrenzy/FreightFrenzyBarcodeElement.yml"
+    RelicRecoveryMatchDetails:
+      $ref: "./types/details/RelicRecovery/RelicRecoveryMatchDetails.yml"
+    SkyStoneAllianceDetails:
+      $ref: "./types/details/SkyStone/SkyStoneAllianceDetails.yml"
+    SkyStoneRobotParkingStatus:
+      $ref: "./types/details/SkyStone/SkyStoneRobotParkingStatus.yml"
+    SkyStoneMatchDetails:
+      $ref: "./types/details/SkyStone/SkyStoneMatchDetails.yml"
+    VelocityVortexMatchDetails:
+      $ref: "./types/details/VelocityVortex/VelocityVortexMatchDetails.yml"
 
   securitySchemes:
     ApiAppID:
@@ -44,46 +118,6 @@ paths:
                 properties:
                   version:
                     type: string
-  /docs:
-    get:
-      summary: TODO
-      tags:
-        - API
-      responses:
-        200:
-          $ref: "#/components/responses/unfinished"
-  /docs/get:
-    get:
-      summary: TODO
-      tags:
-        - API
-      responses:
-        200:
-          $ref: "#/components/responses/unfinished"
-  /docs/post:
-    get:
-      summary: TODO
-      tags:
-        - API
-      responses:
-        200:
-          $ref: "#/components/responses/unfinished"
-  /docs/put:
-    get:
-      summary: TODO
-      tags:
-        - API
-      responses:
-        200:
-          $ref: "#/components/responses/unfinished"
-  /docs/models:
-    get:
-      summary: TODO
-      tags:
-        - API
-      responses:
-        200:
-          $ref: "#/components/responses/unfinished"
   /event-types:
     get:
       summary: Returns all event types.
@@ -98,7 +132,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: "./types/EventType.yml"
+                  $ref: "#/components/schemas/EventType"
   /seasons:
     get:
       summary: Get all FTC seasons
@@ -112,7 +146,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: "./types/Season.yml"
+                  $ref: "#/components/schemas/Season"
   /regions:
     get:
       summary: Get all FTC regions
@@ -126,7 +160,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: "./types/Region.yml"
+                  $ref: "#/components/schemas/Region"
   /leagues:
     get:
       summary: Get all FTC leagues
@@ -140,7 +174,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: "./types/League.yml"
+                  $ref: "#/components/schemas/League"
   /streams:
     get:
       summary: Get all active livestreams
@@ -155,7 +189,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: "./types/EventLiveStream.yml"
+                  $ref: "#/components/schemas/EventLiveStream"
   /event:
     get:
       summary: Return all events based on the given query
@@ -190,7 +224,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: "./types/Event.yml"
+                  $ref: "#/components/schemas/Event"
   /event/size:
     get:
       summary: Event count
@@ -223,7 +257,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "./types/Event.yml"
+                $ref: "#/components/schemas/Event"
   /event/{eventKey}/matches:
     get:
       summary: Event matches
@@ -244,7 +278,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: "./types/Match.yml"
+                  $ref: "#/components/schemas/Match"
   /event/{eventKey}/matches/details:
     get:
       summary: Event match details
@@ -265,7 +299,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: "./types/MatchDetails.yml"
+                  $ref: "#/components/schemas/MatchDetails"
   /event/{eventKey}/matches/participants:
     get:
       summary: Event match participants
@@ -286,7 +320,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: "./types/MatchParticipant.yml"
+                  $ref: "#/components/schemas/MatchParticipant"
   /event/{eventKey}/rankings:
     get:
       summary: Event rankings
@@ -306,7 +340,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: "./types/Ranking.yml"
+                  $ref: "#/components/schemas/Ranking"
   /event/{eventKey}/insights:
     get:
       summary: Event insights
@@ -334,7 +368,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: "./types/EventInsights.yml"
+                  $ref: "#/components/schemas/EventInsights"
   /event/{eventKey}/alliances:
     get:
       summary: Event alliances
@@ -354,7 +388,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: "./types/Alliance.yml"
+                  $ref: "#/components/schemas/Alliance"
   /event/{eventKey}/streams:
     get:
       summary: Event livestreams
@@ -374,7 +408,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: "./types/EventLiveStream.yml"
+                  $ref: "#/components/schemas/EventLiveStream"
   /event/{eventKey}/teams:
     get:
       summary: Event teams
@@ -394,7 +428,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: "./types/EventParticipant.yml"
+                  $ref: "#/components/schemas/EventParticipant"
   /event/{eventKey}/awards:
     get:
       summary: Event awards
@@ -414,7 +448,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: "./types/AwardRecipient.yml"
+                  $ref: "#/components/schemas/AwardRecipient"
   /event/{eventKey}/media:
     get:
       summary: Event media
@@ -434,7 +468,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: "./types/Media.yml"
+                  $ref: "#/components/schemas/Media"
   /match/all/{seasonKey}:
     get:
       summary: Matches from season
@@ -468,7 +502,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: "./types/Match.yml"
+                  $ref: "#/components/schemas/Match"
   /match/size:
     get:
       summary: Match count
@@ -515,7 +549,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "./types/Match.yml"
+                $ref: "#/components/schemas/Match"
   /match/{matchKey}:
     get:
       summary: Match info
@@ -533,7 +567,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "./types/Match.yml"
+                $ref: "#/components/schemas/Match"
               examples:
                 freightFrenzy:
                   $ref: "./examples/FreightFrenzyMatch.yml"
@@ -554,7 +588,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "./types/MatchDetails.yml"
+                $ref: "#/components/schemas/MatchDetails"
   /match/{matchKey}/participants:
     get:
       summary: Match participants
@@ -574,7 +608,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: "./types/MatchParticipant.yml"
+                  $ref: "#/components/schemas/MatchParticipant"
   /team:
     get:
       summary: All teams
@@ -622,7 +656,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: "./types/Team.yml"
+                  $ref: "#/components/schemas/Team"
   /team/size:
     get:
       summary: Team count
@@ -656,7 +690,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "./types/Team.yml"
+                $ref: "#/components/schemas/Team"
   /team/{teamKey}/wlt:
     get:
       summary: Team WLT record
@@ -675,7 +709,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "./types/TeamSeasonRecord.yml"
+                $ref: "#/components/schemas/TeamSeasonRecord"
   /team/{teamKey}/events/{seasonKey}:
     get:
       summary: Team events
@@ -702,7 +736,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: "./types/EventParticipant.yml"
+                  $ref: "#/components/schemas/EventParticipant"
   /team/{teamKey}/matches/{seasonKey}:
     get:
       summary: Team matches
@@ -729,7 +763,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: "./types/MatchParticipant.yml"
+                  $ref: "#/components/schemas/MatchParticipant"
   /team/{teamKey}/awards/{seasonKey}:
     get:
       summary: Team awards
@@ -755,7 +789,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: "./types/AwardRecipient.yml"
+                  $ref: "#/components/schemas/AwardRecipient"
   /team/{teamKey}/results/{seasonKey}:
     get:
       summary: Team results
@@ -781,7 +815,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: "./types/Ranking.yml"
+                  $ref: "#/components/schemas/Ranking"
   /team/{teamKey}/media/{seasonKey}:
     get:
       summary: Team media
@@ -807,7 +841,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: "./types/Media.yml"
+                  $ref: "#/components/schemas/Media"
   /team/history/{seasonKey}:
     get:
       summary: Historical teams
@@ -860,7 +894,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: "./types/Team.yml"
+                  $ref: "#/components/schemas/Team"
   /team/history/{seasonKey}/{teamKey}:
     get:
       summary: Historical team
@@ -884,7 +918,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "./types/Team.yml"
+                $ref: "#/components/schemas/Team"
 
   /web/announcements:
     get:
@@ -899,7 +933,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: "./types/WebAnnouncement.yml"
+                  $ref: "#/components/schemas/WebAnnouncement"
 
   /league/{leagueKey}:
     get:
@@ -918,7 +952,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "./types/League.yml"
+                $ref: "#/components/schemas/League"
   /league/divisions:
     get:
       summary: League divisions
@@ -948,4 +982,4 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: "./types/LeagueDiv.yml"
+                  $ref: "#/components/schemas/LeagueDiv"
