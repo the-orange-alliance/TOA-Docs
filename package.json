@@ -12,6 +12,6 @@
         "vite": "^2.6.4"
     },
     "dependencies": {
-        "swagger-ui": "^4.1.0"
+        "swagger-ui": "^4.1.3"
     }
 }
