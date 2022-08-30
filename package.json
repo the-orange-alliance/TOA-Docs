@@ -9,7 +9,7 @@
     },
     "devDependencies": {
         "@apidevtools/swagger-cli": "^4.0.4",
-        "vite": "^2.6.4"
+        "vite": "^2.9.13"
     },
     "dependencies": {
         "swagger-ui": "^4.1.0"
